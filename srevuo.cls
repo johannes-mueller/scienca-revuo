@@ -18,7 +18,7 @@
 %
 %
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{sr-johmue}
+\ProvidesClass{srevuo}
 \newif\ifSR@Author@
 \SR@Author@true
 \newif\ifSR@Draft@
@@ -57,7 +57,7 @@
   \newcommand\providescommand[2]{\ifx#1\@undefined\newcommand#1{#2}\fi}
 \fi
 \newread\SR@file
-\ProvidesClass{dtk}
+\ProvidesClass{srevuo}
 \newcommand\SR@isnum[1]{%
   \if!\ifnum9<1#1!\else_\fi
       \expandafter\@firstoftwo
