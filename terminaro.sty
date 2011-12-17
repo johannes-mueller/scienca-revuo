@@ -1,0 +1,142 @@
+
+\RequirePackage{xkeyval}
+\RequirePackage{supertabular}
+
+\let\@start@term=0
+\let\@end@term=0
+
+\newwrite\@terminoj
+\newif\if@terminojopen \global\@terminojopenfalse
+
+\def\@openterminoj{\immediate\openout\@terminoj=\jobname.trm\relax
+      \global\@terminojopentrue}
+
+\define@key{termino}{fonto}{\gdef\trm@fonto{#1}}
+
+\newcommand{\termino}[3][]{%
+  \ifx\trm@ling@list\@empty
+    \PackageError{terminaro}{Vi devas indiki kiujn lingvojn via terminaro enhavas.}{Uzu \\terminarouzas aux \\pliaterminaraling}
+  \fi
+  #2\textsuperscript{T}%
+  \def\@@temp{#1}%
+  \ifx\@@temp\@empty
+    \def\@@temp{#2}%
+  \fi
+  \if@terminojopen \else \@openterminoj \fi
+  \immediate\write\@terminoj{\@start@term\@@temp|#3,\@end@term}%
+}
+
+\newcount\trm@ling@num
+
+\def\trm@reset@ling@list{
+  \def\trm@ling@list{}
+  \trm@ling@num=0
+}
+\trm@reset@ling@list
+\def\trm@define@ling#1:#2\@fin{%
+  \define@key{termino}{#1}{\expandafter\gdef\csname trm@#1\endcsname{##1}}
+  \edef\trm@ling@list{\trm@ling@list#1,}
+  \advance\trm@ling@num 1
+}
+
+\def\trm@ling@de{germana}
+\def\trm@ling@en{angla}
+\def\trm@ling@fr{franca}
+
+\def\pliaterminaraling#1#2{%
+  \trm@define@ling#1:#2\@fin
+  \expandafter\def\csname trm@ling@#1\endcsname{#2}
+}
+\def\terminarouzas#1{%
+  \edef\@@temp{\zap@space#1 \@empty}
+  \expandafter\trm@next@ling@def\@@temp,\@fin
+}
+
+\def\trm@next@ling@def#1,#2\@fin{%
+  \edef\@@temp{\csname trm@ling@#1\endcsname}
+  \expandafter\trm@define@ling\expandafter#1\expandafter:\@@temp\@fin%
+  \ifx\@empty#2\@empty\else\trm@next@ling@def#2\@fin\fi
+}
+
+\def\print@termino@ling#1#2{%
+  \@trm@reset@trms%
+  \setkeys{termino}{#2}%
+  #1\trm@col\trm@print@trm@ling\trm@col\trm@fonto\\
+}
+
+\def\vikipedio{vkp.}
+\def\PIV{PIV}
+\def\ReVo{ReVo}
+\def\meminvento{MI}
+
+\def\@trm@reset@trms{%
+  \expandafter\@trm@reset@next@trm\trm@ling@list\@fin
+  \global\let\trm@fonto\relax
+}
+\def\@trm@reset@next@trm#1,#2\@fin{%
+  \global\expandafter\let\csname trm@#1\endcsname\relax
+  \ifx\@empty#2\@empty\else\@trm@reset@next@trm#2\@fin\fi
+}
+
+\def\trm@print@trm@ling{%
+  \expandafter\trm@print@next@trm@ling\trm@ling@list\@fin
+}
+\def\trm@print@next@trm@ling#1,#2\@fin{
+  \csname trm@#1\endcsname
+  \ifx\@empty#2\@empty\else
+    \trm@col\trm@print@next@trm@ling#2\@fin
+  \fi
+}
+
+
+\def\trm@ling@list@out{%
+  \expandafter\trm@next@ling\trm@ling@list\@fin
+}
+\def\trm@next@ling#1,#2\@fin{%
+  \csname trm@ling@#1\endcsname
+  \ifx\@empty#2\@empty\else\trm@col
+     \trm@next@ling#2\@fin
+  \fi
+}
+\def\trm@col{&}
+
+
+\RequirePackage{array}
+\RequirePackage[table]{xcolor}
+\RequirePackage{calc}
+\RequirePackage{booktabs}
+\rowcolors{2}{white}{black!10!white}
+
+\newlength{\trm@term@col@width}
+\newlength{\trm@fonto@col@width}
+\setlength{\trm@fonto@col@width}{1.5cm}
+\def\trm@ling@col@width@rat{0.25}
+
+
+\def\terminaro{%
+  \immediate\closeout\@terminoj \global\@terminojopenfalse%
+  \def\@start@term##1|##2\@end@term{\print@termino@ling{##1}{##2}}%
+  \immediate\write18{sort \jobname.trm > \jobname.tmp && mv \jobname.tmp \jobname.trm}%
+  \section*{Terminaro}
+  \par\noindent%
+  \tablehead{\rowcolor[gray]{1.0}\toprule\textsf{esprimo} & \trm@ling@list@out & fnt. \\\midrule}%
+  \setlength{\trm@term@col@width}{\textwidth}%
+  \addtolength{\trm@term@col@width}{%
+    \textwidth*\trm@ling@num*\real{-\trm@ling@col@width@rat}}%
+  \addtolength{\trm@term@col@width}{-\trm@fonto@col@width}%
+  \addtolength{\trm@term@col@width}{-2\tabcolsep*\trm@ling@num}%
+  \addtolength{\trm@term@col@width}{-4\tabcolsep}%
+  \small%
+  \makeatletter%
+  \begin{supertabular}{%
+      >{\raggedright}p{\trm@term@col@width}
+      *{\the\trm@ling@num}{>{\raggedright}p{\trm@ling@col@width@rat\textwidth}}
+      >{\centering}p{\trm@fonto@col@width}}
+  \input{\jobname.trm}
+  \bottomrule
+  \end{supertabular}
+  \normalsize
+  \trm@reset@ling@list
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,437 @@
+\ProvidesFile{esperanto.lbx}
+
+\DeclareRedundantLanguages{esperanto}{esperanto}
+
+\DeclareBibliographyExtras{%
+  \DeclareCapitalPunctuation{.:!?}%
+  \protected\def\bibrangedash{%
+    \textendash\penalty\hyphenpenalty}% breakable dash
+  \protected\def\bibdatedash{\bibrangedash}%
+  \let\finalandcomma=\empty
+  \protected\def\mkbibordinal#1{\stripzeros{#1}\adddot}%
+  \protected\def\mkbibmascord{\mkbibordinal}%
+  \protected\def\mkbibfemord{\mkbibordinal}%
+  \protected\def\mkbibdatelong#1#2#3{%
+    \iffieldundef{#3}
+      {}
+      {\mkbibordinal{\thefield{#3}}%
+       \iffieldundef{#2}{}{\nobreakspace}}%
+    \iffieldundef{#2}
+      {}
+      {\mkbibmonth{\thefield{#2}}%
+       \iffieldundef{#1}{}{\space}}%
+    \stripzeros{\thefield{#1}}}%
+  \protected\def\mkbibdateshort#1#2#3{%
+    \iffieldundef{#3}
+      {}
+      {\mkdatezeros{\thefield{#3}}\adddot
+       \iffieldundef{#2}{}{\thinspace}}%
+    \iffieldundef{#2}
+      {}
+      {\mkdatezeros{\thefield{#2}}%
+       \iffieldundef{#1}
+	 {}
+	 {\iffieldundef{#3}{/}{\adddot\thinspace}}}%
+    \mkdatezeros{\thefield{#1}}}%
+  \savecommand\lbx@lfromlang
+  \savecommand\lbx@sfromlang
+  \def\lbx@lfromlang{%
+    \iffieldundef{origlanguage}
+      {}
+      {\bibstring{from\thefield{origlanguage}}\space}}%
+  \def\lbx@sfromlang{%
+    \iffieldundef{origlanguage}
+      {}
+      {\bibstring{from\thefield{origlanguage}}\space}}%
+}
+
+\UndeclareBibliographyExtras{%
+  \restorecommand\lbx@lfromlang
+  \restorecommand\lbx@sfromlang
+}
+
+\DeclareBibliographyStrings{%
+  bibliography     = {{litaraturo}{Literaturo}},
+  references       = {{referencoj}{Referencoj}},
+  shorthands       = {{mallongigoj}{Mallongigoj}},
+  editor           = {{eldonisto}{eld\adddot}},
+  editors          = {{eldonistoj}{eld\adddot}},
+  compiler         = {{eldonisto}{eld\adddot}},
+  compilers        = {{eldonistoj}{eld\adddot}},
+  redactor         = {{redaktoro}{red\adddot}},
+  redactors        = {{redaktoroj}{red\adddot}},
+  reviser          = {{korektinto}{korekt\adddot}},
+  revisers         = {{krektintoj}{korekt\adddot}},
+  founder          = {{fondisto}{fond\adddot}},
+  founders         = {{fondistoj}{fond\adddot}},
+  continuator      = {{daŭriganto}{daŭr\adddot}},
+  continuators     = {{daŭrigantoj}{daŭr\adddot}},
+  collaborator     = {{kunlaboranto}{kunlab\adddot}},
+  collaborators    = {{kunlaboro}{kunlab\adddot}},
+  translator       = {{tradukisto}{trad\adddot}},
+  translators      = {{tradukistoj}{trad\adddot}},
+  commentator      = {{komentoj}{kom\adddot}},
+  commentators     = {{komentoj}{kom\adddot}},
+  annotator        = {{klarigoj}{klar\adddot}},
+  annotators       = {{klarigoj}{klar\adddot}},
+  commentary       = {{komento}{kom\adddot}},
+  annotations      = {{prinotok}{prinot\adddot}},
+  introduction     = {{enkonduko}{enk\adddot}},
+  foreword         = {{antaŭparolo}{ant\adddot}},
+  afterword        = {{postparolo}{post\adddot}},
+  editortr         = {{eldonisto kaj tradukisto}%
+                      {eld\adddot\ kaj trad\adddot}},
+  editorstr        = {{eldonisto kaj tradukisto}%
+                      {eld\adddot\ kaj trad\adddot}},
+  editorco         = {{eldonisto kaj kommento}%
+                      {eld\adddot\ kaj kom\adddot}},
+  editorsco        = {{eldonisto kaj kommento}%
+                      {eld\adddot\ kaj kom\adddot}},
+  editoran         = {{eldonisto kaj klarigoj}%
+                      {eld\adddot\ kaj klarig\adddot}},
+  editorsan        = {{eldonisto kaj klarigoj}%
+                      {eld\adddot\ kaj klarig\adddot}},
+  editorin         = {{eldonisto kaj enkonduko}%
+                      {eld\adddot\ kaj enkond\adddot}},
+  editorsin        = {{eldonisto kaj enkonduko}%
+                      {eld\adddot\ kaj enkond\adddot}},
+  editorfo         = {{eldonisto kaj antaŭparolo}%
+                      {eld\adddot\ kaj antaŭp\adddot}},
+  editorsfo        = {{eldonisto kaj antaŭparolo}%
+                      {eld\adddot\ kaj antaŭp\adddot}},
+  editoraf         = {{eldonisto kaj postparolo}%
+                      {eld\adddot\ kaj postp\adddot}},
+  editorsaf        = {{eldonisto kaj postparolo}%
+                      {eld\adddot\ kaj postp\adddot}},
+  editortrco       = {{eldonisto, tradukisto kaj kommento}%
+                      {eld., trad\adddot\ kaj kom\adddot}},
+  editorstrco      = {{eldonisto, tradukisto kaj kommento}%
+                      {eld., trad\adddot\ kaj kom\adddot}},
+  editortran       = {{eldonisto, tradukisto kaj klarigoj}%
+                      {eld., trad\adddot\ kaj klarig\adddot}},
+  editorstran      = {{eldonisto, tradukisto kaj klarigoj}%
+                      {eld., trad\adddot\ kaj klarig\adddot}},
+  editortrin       = {{eldonisto, tradukisto kaj enkonduko}%
+                      {eld., trad\adddot\ kaj enkond\adddot}},
+  editorstrin      = {{eldonisto, tradukisto kaj enkonduko}%
+                      {eld., trad\adddot\ kaj enkond\adddot}},
+  editortrfo       = {{eldonisto, tradukisto kaj antaŭparolo}%
+                      {eld., trad\adddot\ kaj antaŭp\adddot}},
+  editorstrfo      = {{eldonisto, tradukisto kaj antaŭparolo}%
+                      {eld., trad\adddot\ kaj antaŭp\adddot}},
+  editortraf       = {{eldonisto, tradukisto kaj postparolo}%
+                      {eld., trad\adddot\ kaj postp\adddot}},
+  editorstraf      = {{eldonisto, tradukisto kaj postparolo}%
+                      {eld., trad\adddot\ kaj postp\adddot}},
+  editorcoin       = {{eldonisto, kommento kaj enkonduko}%
+                      {eld., kom\adddot\ kaj enkond\adddot}},
+  editorscoin      = {{eldonisto, kommento kaj enkonduko}%
+                      {eld., kom\adddot\ kaj enkond\adddot}},
+  editorcofo       = {{eldonisto, kommento kaj antaŭparolo}%
+                      {eld., kom\adddot\ kaj antaŭp\adddot}},
+  editorscofo      = {{eldonisto, kommento kaj antaŭparolo}%
+                      {eld., kom\adddot\ kaj antaŭp\adddot}},
+  editorcoaf       = {{eldonisto, kommento kaj postparolo}%
+                      {eld., kom\adddot\ kaj postp\adddot}},
+  editorscoaf      = {{eldonisto, kommento kaj postparolo}%
+                      {eld., kom\adddot\ kaj postp\adddot}},
+  editoranin       = {{eldonisto, klarigoj kaj enkonduko}%
+                      {eld., klarig\adddot\ kaj enkond\adddot}},
+  editorsanin      = {{eldonisto, klarigoj kaj enkonduko}%
+                      {eld., klarig\adddot\ kaj enkond\adddot}},
+  editoranfo       = {{eldonisto, klarigoj kaj antaŭparolo}%
+                      {eld., klarig\adddot\ kaj antaŭp\adddot}},
+  editorsanfo      = {{eldonisto, klarigoj kaj antaŭparolo}%
+                      {eld., klarig\adddot\ kaj antaŭp\adddot}},
+  editoranaf       = {{eldonisto, klarigoj kaj postparolo}%
+                      {eld., klarig\adddot\ kaj postp\adddot}},
+  editorsanaf      = {{eldonisto, klarigoj kaj postparolo}%
+                      {eld., klarig\adddot\ kaj postp\adddot}},
+  editortrcoin     = {{eldonisto, tradukisto, kommento kaj enkonduko}%
+                      {eld., trad., kom\adddot\ kaj enkond\adddot}},
+  editorstrcoin    = {{eldonisto, tradukisto, kommento kaj enkonduko}%
+                      {eld., trad., kom\adddot\ kaj enkond\adddot}},
+  editortrcofo     = {{eldonisto, tradukisto, kommento kaj antaŭparolo}%
+                      {eld., trad., kom\adddot\ kaj antaŭp\adddot}},
+  editorstrcofo    = {{eldonisto, tradukisto, kommento kaj antaŭparolo}%
+                      {eld., trad., kom\adddot\ kaj antaŭp\adddot}},
+  editortrcoaf     = {{eldonisto, tradukisto, kommento kaj postparolo}%
+                      {eld., trad., kom\adddot\ kaj postp\adddot}},
+  editorstrcoaf    = {{eldonisto, tradukisto, kommento kaj postparolo}%
+                      {eld., trad., kom\adddot\ kaj postp\adddot}},
+  editortranin     = {{eldonisto, tradukisto, klarigoj kaj enkonduko}%
+                      {eld., trad., klarig\adddot\ kaj enkond\adddot}},
+  editorstranin    = {{eldonisto, tradukisto, klarigoj kaj enkonduko}%
+                      {eld., trad., klarig\adddot\ kaj enkond\adddot}},
+  editortranfo     = {{eldonisto, tradukisto, klarigoj kaj antaŭparolo}%
+                      {eld., trad., klarig\adddot\ kaj antaŭp\adddot}},
+  editorstranfo    = {{eldonisto, tradukisto, klarigoj kaj antaŭparolo}%
+                      {eld., trad., klarig\adddot\ kaj antaŭp\adddot}},
+  editortranaf     = {{eldonisto, tradukisto, klarigoj kaj postparolo}%
+                      {eld., trad., klarig\adddot\ kaj postp\adddot}},
+  editorstranaf    = {{eldonisto, tradukisto, klarigoj kaj postparolo}%
+                      {eld., trad., klarig\adddot\ kaj postp\adddot}},
+  translatorco     = {{traduko kaj kommento}%
+                      {trad\adddot\ kaj kom\adddot}},
+  translatorsco    = {{traduko kaj kommento}%
+                      {trad\adddot\ kaj kom\adddot}},
+  translatoran     = {{traduko kaj klarigoj}%
+                      {trad\adddot\ kaj klarig\adddot}},
+  translatorsan    = {{traduko kaj klarigoj}%
+                      {trad\adddot\ kaj klarig\adddot}},
+  translatorin     = {{traduko kaj enkonduko}%
+                      {trad\adddot\ kaj enkond\adddot}},
+  translatorsin    = {{traduko kaj enkonduko}%
+                      {trad\adddot\ kaj enkond\adddot}},
+  translatorfo     = {{traduko kaj antaŭparolo}%
+                      {trad\adddot\ kaj antaŭp\adddot}},
+  translatorsfo    = {{traduko kaj antaŭparolo}%
+                      {trad\adddot\ kaj antaŭp\adddot}},
+  translatoraf     = {{traduko kaj postparolo}%
+                      {trad\adddot\ kaj postp\adddot}},
+  translatorsaf    = {{traduko kaj postparolo}%
+                      {trad\adddot\ kaj postp\adddot}},
+  translatorcoin   = {{traduko, kommento kaj enkonduko}%
+                      {trad., kom\adddot\ kaj enkond\adddot}},
+  translatorscoin  = {{traduko, kommento kaj enkonduko}%
+                      {trad., kom\adddot\ kaj enkond\adddot}},
+  translatorcofo   = {{traduko, kommento kaj antaŭparolo}%
+                      {trad., kom\adddot\ kaj antaŭp\adddot}},
+  translatorscofo  = {{traduko, kommento kaj antaŭparolo}%
+                      {trad., kom\adddot\ kaj antaŭp\adddot}},
+  translatorcoaf   = {{traduko, kommento kaj postparolo}%
+                      {trad., kom\adddot\ kaj postp\adddot}},
+  translatorscoaf  = {{traduko, kommento kaj postparolo}%
+                      {trad., kom\adddot\ kaj postp\adddot}},
+  translatoranin   = {{traduko, klarigoj kaj enkonduko}%
+                      {trad., klarig\adddot\ kaj enkond\adddot}},
+  translatorsanin  = {{traduko, klarigoj kaj enkonduko}%
+                      {trad., klarig\adddot\ kaj enkond\adddot}},
+  translatoranfo   = {{traduko, klarigoj kaj antaŭparolo}%
+                      {trad., klarig\adddot\ kaj antaŭp\adddot}},
+  translatorsanfo  = {{traduko, klarigoj kaj antaŭparolo}%
+                      {trad., klarig\adddot\ kaj antaŭp\adddot}},
+  translatoranaf   = {{traduko, klarigoj kaj postparolo}%
+                      {trad., klarig\adddot\ kaj postp\adddot}},
+  translatorsanaf  = {{traduko, klarigoj kaj postparolo}%
+                      {trad., klarig\adddot\ kaj postp\adddot}},
+  byauthor         = {{de}{de}},
+  byeditor         = {{eldonita de}{eld\adddotspace de}},
+  bycompiler       = {{kompilita de}{komp\adddotspace de}},
+  byredactor       = {{prilaborita de}{prilab\adddotspace de}},
+  byreviser        = {{prilaborita de}{prilab\adddotspace de}},
+  byfounder        = {{fondita de}{fond\adddotspace de}},
+  bycontinuator    = {{daŭrigita de}{daŭrig\adddotspace de}},
+  bycollaborator   = {{kunlabore de}{kunl\adddotspace de}},
+  bytranslator     = {{\lbx@lfromlang tradukita de}{\lbx@sfromlang trad\adddot\ de}},
+  bycommentator    = {{komentita de}{kom\adddot\ de}},
+  byannotator      = {{klarigita de}{klarig\adddot\ de}},
+  withcommentator  = {{kun kommento de}{kun kom\adddot\ de}},
+  withannotator    = {{kun klarigoj de}{kun klarig\adddot\ de}},
+  withintroduction = {{kun enkonduko de}{kun enkond\adddot\ de}},
+  withforeword     = {{kun antaŭparolo de}{kun antaŭp\adddot\ de}},
+  withafterword    = {{kun postparolo de}{kun postp\adddot\ de}},
+  byeditortr       = {{eldonita kaj \lbx@lfromlang tradukita de}%
+                      {eld\adddotspace kaj \lbx@sfromlang trad\adddot\ de}},
+  byeditorco       = {{eldonita kaj komentita de}%
+                      {eld\adddotspace kaj kom\adddot\ de}},
+  byeditoran       = {{eldonita kaj klarigita de}%
+                      {eld\adddotspace kaj klarig\adddot\ de}},
+  byeditorin       = {{eldonita kaj kun enkonduko aldonita de}%
+                      {eld\adddotspace kaj kun enkond\adddot\ ald\adddot\ de}},
+  byeditorfo       = {{eldonita kaj kun antaŭparolo aldonita de}%
+                      {eld\adddotspace kaj kun antaŭp\adddot\ ald\adddot\ de}},
+  byeditoraf       = {{eldonita kaj kun postparolo aldonita de}%
+                      {eld\adddotspace kaj kun postp\adddot\ ald\adddot\ de}},
+  byeditortrco     = {{eldonita, \lbx@lfromlang tradukita kaj komentita de}%
+                      {eld., \lbx@sfromlang trad\adddot\ kaj kom\adddot\ de}},
+  byeditortran     = {{eldonita, \lbx@lfromlang tradukita kaj klarigita de}%
+                      {eld., \lbx@sfromlang trad\adddot\ kaj klarig\adddot\ de}},
+  byeditortrin     = {{eldonita, \lbx@lfromlang tradukita kaj kun enkonduko aldonita de}%
+                      {eld., \lbx@sfromlang trad\adddot\ kaj kun enkond\adddot\ ald\adddot\ de}},
+  byeditortrfo     = {{eldonita, \lbx@lfromlang tradukita kaj kun antaŭparolo aldonita de}%
+                      {eld., \lbx@sfromlang trad\adddot\ kaj kun antaŭp\adddot\ ald\adddot\ de}},
+  byeditortraf     = {{eldonita, \lbx@lfromlang tradukita kaj kun postparolo aldonita de}%
+                      {eld., \lbx@sfromlang trad\adddot\ kaj kun postp\adddot\ ald\adddot\ de}},
+  byeditorcoin     = {{eldonita, komentita kaj kun enkonduko aldonita de}%
+                      {eld., kom\adddot\ kaj kun enkond\adddot\ ald\adddot\ de}},
+  byeditorcofo     = {{eldonita, komentita kaj kun antaŭparolo aldonita de}%
+                      {eld., kom\adddot\ kaj kun antaŭp\adddot\ ald\adddot\ de}},
+  byeditorcoaf     = {{eldonita, komentita kaj kun postparolo aldonita de}%
+                      {eld., kom\adddot\ kaj kun postp\adddot\ ald\adddot\ de}},
+  byeditoranin     = {{eldonita, klarigita kaj kun enkonduko aldonita de}%
+                      {eld., klarig\adddot\ kaj kun enkond\adddot\ ald\adddot\ de}},
+  byeditoranfo     = {{eldonita, klarigita kaj kun antaŭparolo aldonita de}%
+                      {eld., klarig\adddot\ kaj kun antaŭp\adddot\ ald\adddot\ de}},
+  byeditoranaf     = {{eldonita, klarigita kaj kun postparolo aldonita de}%
+                      {eld., klarig\adddot\ kaj kun postp\adddot\ ald\adddot\ de}},
+  byeditortrcoin   = {{eldonita, \lbx@lfromlang tradukita, komentita kaj kun enkonduko aldonita de}%
+                      {eld., \lbx@sfromlang trad., kom\adddot\ kaj kun enkond\adddot\ ald\adddot\ de}},
+  byeditortrcofo   = {{eldonita, \lbx@lfromlang tradukita, komentita kaj kun antaŭparolo aldonita de}%
+                      {eld., \lbx@sfromlang trad., kom\adddot\ kaj kun antaŭp\adddot\ ald\adddot\ de}},
+  byeditortrcoaf   = {{eldonita, \lbx@lfromlang tradukita, komentita kaj kun postparolo aldonita de}%
+                      {eld., \lbx@sfromlang trad., kom\adddot\ kaj kun postp\adddot\ ald\adddot\ de}},
+  byeditortranin   = {{eldonita, \lbx@lfromlang tradukita, klarigita kaj kun enkonduko aldonita de}%
+                      {eld., \lbx@sfromlang trad., klarig\adddot\ kaj kun enkond\adddot\ ald\adddot\ de}},
+  byeditortranfo   = {{eldonita, \lbx@lfromlang tradukita, klarigita kaj kun antaŭparolo aldonita de}%
+                      {eld., \lbx@sfromlang trad., klarig\adddot\ kaj kun antaŭp\adddot\ ald\adddot\ de}},
+  byeditortranaf   = {{eldonita, \lbx@lfromlang tradukita, klarigita kaj kun postparolo aldonita de}%
+                      {eld., \lbx@sfromlang trad., klarig\adddot\ kaj kun postp\adddot\ ald\adddot\ de}},
+  bytranslatorco   = {{\lbx@lfromlang tradukita kaj komentita de}%
+                      {\lbx@sfromlang trad\adddot\ kaj kom\adddot\ de}},
+  bytranslatoran   = {{\lbx@lfromlang tradukita kaj klarigita de}%
+                      {\lbx@sfromlang trad\adddot\ kaj klarig\adddot\ de}},
+  bytranslatorin   = {{\lbx@lfromlang tradukita kaj kun enkonduko aldonita de}%
+                      {\lbx@sfromlang trad\adddot\ kaj kun enkond\adddot\ ald\adddot\ de}},
+  bytranslatorfo   = {{\lbx@lfromlang tradukita kaj kun antaŭparolo aldonita de}%
+                      {\lbx@sfromlang trad\adddot\ kaj kun antaŭp\adddot\ ald\adddot\ de}},
+  bytranslatoraf   = {{\lbx@lfromlang tradukita kaj kun postparolo aldonita de}%
+                      {\lbx@sfromlang trad\adddot\ kaj kun postp\adddot\ ald\adddot\ de}},
+  bytranslatorcoin = {{\lbx@lfromlang tradukita, komentita kaj kun enkonduko aldonita de}%
+                      {\lbx@sfromlang trad., kom\adddot\ kaj kun enkond\adddot\ ald\adddot\ de}},
+  bytranslatorcofo = {{\lbx@lfromlang tradukita, komentita kaj kun antaŭparolo aldonita de}%
+                      {\lbx@sfromlang trad., kom\adddot\ kaj kun antaŭp\adddot\ ald\adddot\ de}},
+  bytranslatorcoaf = {{\lbx@lfromlang tradukita, komentita kaj kun postparolo aldonita de}%
+                      {\lbx@sfromlang trad., kom\adddot\ kaj kun postp\adddot\ ald\adddot\ de}},
+  bytranslatoranin = {{\lbx@lfromlang tradukita, klarigita kaj kun enkonduko aldonita de}%
+                      {\lbx@sfromlang trad., klarig\adddot\ kaj kun enkond\adddot\ ald\adddot\ de}},
+  bytranslatoranfo = {{\lbx@lfromlang tradukita, klarigita kaj kun antaŭparolo aldonita de}%
+                      {\lbx@sfromlang trad., klarig\adddot\ kaj kun antaŭp\adddot\ ald\adddot\ de}},
+  bytranslatoranaf = {{\lbx@lfromlang tradukita, klarigita kaj kun postparolo aldonita de}%
+                      {\lbx@sfromlang trad., klarig\adddot\ kaj kun postp\adddot\ ald\adddot\ de}},
+  and              = {{kaj}{kaj}},
+  andothers        = {{kaj aliaj}{k\adddot a\adddot}},
+  andmore          = {{kaj aliaj}{k\adddot \adddot}},
+  volume           = {{volumo}{vol\adddot}},
+  volumes          = {{volumoj}{vol\adddot}},
+  jourvol          = {{jaro}{j\adddot}},
+  jourser          = {{serio}{s\adddot}},
+  newseries        = {{neue Folge}{n.\,F\adddot}},
+  oldseries        = {{alte Folge}{a.\,F\adddot}},
+  edition          = {{eldono}{eld-o\adddot}},
+  reprint          = {{represo}{repr\adddot}},
+  reprintof        = {{represo de}{repr\adddotspace de}},
+  reprintas        = {{represo je titolo}{repr\adddotspace je titolo}},
+  page             = {{paĝo}{p\adddot}},
+  pages            = {{paĝoj}{p\adddot}},
+  column           = {{kolumno}{kol-o\adddot}},
+  columns          = {{kolumnoj}{kol-o\adddot}},
+  line             = {{linio}{l\adddot}},
+  lines            = {{linioj}{l\adddot}},
+  verse            = {{verso}{verso}},
+  verses           = {{versoj}{verso}},
+  section          = {{paragrafo}{\S}},
+  sections         = {{paragrafoj}{\S\S}},
+  paragraph        = {{alineo}{aln\adddot}},
+  paragraphs       = {{alineoj}{aln\adddot}},
+  in               = {{en}{en}},
+  inseries         = {{el la serio}{el\adddotspace sr.}},
+  ofseries         = {{el la serio}{el\adddotspace sr.}},
+  number           = {{numero}{n-ro}},
+  chapter          = {{ĉapitro}{ĉap\adddot}},
+  mathesis         = {{magistra tezo}{mag\adddotspace tezo}},
+  phdthesis        = {{disertacio}{dis-o\adddot}},
+  resreport        = {{esplorraporto}{espl\adddotspace rap\adddot}},
+  techreport       = {{teknika raporto}{tekn\adddotspace rap\adddot}},
+  software         = {{programaĵo}{programaĵo}},
+  datacd           = {{KD-ROM}{KD-ROM}},
+  audiocd          = {{KR}{KD}},
+  version          = {{Versio}{vs-o}},
+  url              = {{adreso}{adreso}},
+  urlseen          = {{vizitita la}{vizitita la}},
+  inpress          = {{presota}{presota}},
+  inpreparation    = {{pretigata}{pretigata}},
+  submitted        = {{ensendita}{ensendita}},
+  citedas          = {{sekve citota kiel}{sekve citota kiel}},
+  thiscite         = {{ĉi tie}{ĉi tie}},
+  seenote          = {{vd\adddotspace noto}{vd.\adddotspace not\adddot}},
+  quotedin         = {{citata laŭ}{citata laŭ}},
+  idem             = {{la samo}{l\adddodspace s-o}},
+  idemsf           = {{la samo}{l\adddodspace s-o}},
+  idemsm           = {{la samo}{l\adddodspace s-o}},
+  idemsn           = {{la samo}{l\adddodspace s-o}},
+  idempf           = {{la samoj}{l\adddodspace s-o}},
+  idempm           = {{la samoj}{l\adddodspace s-o}},
+  idempn           = {{la samoj}{l\adddodspace s-o}},
+  idempp           = {{la samoj}{l\adddodspace s-o}},
+  ibidem           = {{samloke}{samloke}},
+  opcit            = {{a.\,a.\,O\adddot}{a.\,a.\,O\adddot}},
+  loccit           = {{a.\,a.\,O\adddot}{a.\,a.\,O\adddot}},
+  confer           = {{kp\adddot}{kp\adddot}},
+  sequens          = {{ksk\adddot}{ksk\adddot}},
+  sequentes        = {{ksk\adddot}{ksk\adddot}},
+  passim           = {{passim}{pass\adddot}},
+  see              = {{vd\adddodt}{vd\adddot}},
+  seealso          = {{vd\adddodtspace ankaŭ}{s.\,auch}},
+  backrefpage      = {{vd\adddodtspace paĝo}{vd\adddodtspace p\adddot}},
+  backrefpages     = {{vd\adddodtspace paĝoj}{vd\adddodtspace p\adddot}},
+  january          = {{Januar}{Jan\adddot}},
+  february         = {{Februar}{Feb\adddot}},
+  march            = {{M\"arz}{M\"arz}},
+  april            = {{April}{Apr\adddot}},
+  may              = {{Mai}{Mai}},
+  june             = {{Juni}{Juni}},
+  july             = {{Juli}{Juli}},
+  august           = {{August}{Aug\adddot}},
+  september        = {{September}{Sep\adddot}},
+  october          = {{Oktober}{Okt\adddot}},
+  november         = {{November}{Nov\adddot}},
+  december         = {{Dezember}{Dez\adddot}},
+  langamerican     = {{Amerikanisch}{Amerikanisch}},
+  langbrazilian    = {{Brasilianisch}{Brasilianisch}},
+  langdanish       = {{D\"anisch}{D\"anisch}},
+  langdutch        = {{Niederl\"andisch}{Niederl\"andisch}},
+  langenglish      = {{Englisch}{Englisch}},
+  langfrench       = {{Franz\"osisch}{Franz\"osisch}},
+  langgerman       = {{Deutsch}{Deutsch}},
+  langgreek        = {{Griechisch}{Griechisch}},
+  langitalian      = {{Italienisch}{Italienisch}},
+  langlatin        = {{Lateinisch}{Lateinisch}},
+  langnorwegian    = {{Norwegisch}{Norwegisch}},
+  langportuguese   = {{Portugiesisch}{Portugiesisch}},
+  langspanish      = {{Spanisch}{Spanisch}},
+  langswedish      = {{Schwedisch}{Schwedisch}},
+  fromamerican     = {{aus dem Amerikanischen}{aus dem Amerikanischen}},
+  frombrazilian    = {{aus dem Brasilianischen}{aus dem Brasilianischen}},
+  fromdanish       = {{aus dem D\"anischen}{aus dem D\"anischen}},
+  fromdutch        = {{aus dem Niederl\"andischen}{aus dem Niederl\"andischen}},
+  fromenglish      = {{aus dem Englischen}{aus dem Englischen}},
+  fromfrench       = {{aus dem Franz\"osischen}{aus dem Franz\"osischen}},
+  fromgerman       = {{aus dem Deutschen}{aus dem Deutschen}},
+  fromgreek        = {{aus dem Griechischen}{aus dem Griechischen}},
+  fromitalian      = {{aus dem Italienischen}{aus dem Italienischen}},
+  fromlatin        = {{aus dem Lateinischen}{aus dem Lateinischen}},
+  fromnorwegian    = {{aus dem Norwegischen}{aus dem Norwegischen}},
+  fromportuguese   = {{aus dem Portugiesischen}{aus dem Portugiesischen}},
+  fromspanish      = {{aus dem Spanischen}{aus dem Spanischen}},
+  fromswedish      = {{aus dem Schwedischen}{aus dem Schwedischen}},
+  countryde        = {{Deutschland}{DE}},
+  countryep        = {{Europ\"aische Union}{EP}},
+  countryeu        = {{Europ\"aische Union}{EU}},
+  countryfr        = {{Frankreich}{FR}},
+  countryuk        = {{Gro\ss britannien}{GB}},
+  countryus        = {{USA}{US}},
+  patent           = {{Patent}{Pat\adddot}},
+  patentde         = {{deutsches Patent}{dt\adddotspace Pat\adddot}},
+  patenteu         = {{europ\"aisches Patent}{europ\adddot\ Pat\adddot}},
+  patentfr         = {{franz\"osisches Patent}{frz\adddot\ Pat\adddot}},
+  patentuk         = {{britisches Patent}{brit\adddot\ Pat\adddot}},
+  patentus         = {{US-Patent}{US-Pat\adddot}},
+  patreq           = {{Patentanmeldung}{Patentanmeld\adddot}},
+  patreqde         = {{deutsche Patentanmeldung}{dt\adddotspace Patentanmeld\adddot}},
+  patreqeu         = {{europ\"aische Patentanmeldung}{europ\adddot\ Patentanmeld\adddot}},
+  patreqfr         = {{franz\"osische Patentanmeldung}{frz\adddot\ Patentanmeld\adddot}},
+  patrequk         = {{britische Patentanmeldung}{brit\adddot\ Patentanmeld\adddot}},
+  patrequs         = {{US-Patentanmeldung}{US-Patentanmeld\adddot}},
+  file             = {{dosjero}{dosjero}},
+  library          = {{biblioteko}{biblioteko}},
+  abstract         = {{resumo}{res-o}},
+  annotation       = {{rimarko}{rim\adddot}},
+}
+
+\DeclareHyphenationExceptions{%
+  Pa-tent-an-mel-dung
+  Pa-tent-an-meld
+}
+
+\endinput
