@@ -170,10 +170,16 @@
     {texgyrepagella-regular.otf}
     \setsansfont[%
     % BoldFont=ZapfHumanist601BT-Bold.otf,BoldItalicFont=ZapfHumanist601BT-BoldItalic.otf,
-    BoldFont=ZapfHumanist601BT-Demi.otf,BoldItalicFont=ZapfHumanist601BT-DemiItalic.otf,
+    BoldFont=ZapfHumanist601BT-Bold.otf,BoldItalicFont=ZapfHumanist601BT-BoldItalic.otf,
     ItalicFont=ZapfHumanist601BT-Italic.otf]
     {ZapfHumanist601BT-Roman.otf}
-     \setkomafont{sectioning}{\normalfont\sffamily\bfseries}
+     \setkomafont{sectioning}{%
+       \fontspec[
+       BoldFont=ZapfHumanist601BT-Demi.otf,
+       BoldItalicFont=ZapfHumanist601BT-DemiItalic.otf,
+       ItalicFont=ZapfHumanist601BT-Italic.otf]{%
+         ZapfHumanist601BT-Roman.otf}
+       \bfseries}
      \setkomafont{partentry}{\normalfont\bfseries\sffamily\large}
 }
 \newcommand{\UseLibertineBiolinum}{%
@@ -388,8 +394,8 @@
   %
 \fi
 
-\addtokomafont{caption}{\scriptsize\sffamily}
-\addtokomafont{captionlabel}{\scriptsize\sffamily\bfseries}
+\addtokomafont{caption}{\footnotesize\sffamily}
+\addtokomafont{captionlabel}{\footnotesize\sffamily\bfseries}
 \setcapwidth[c]{0.8\textwidth}
 \setcapindent{0pt}
 \setcounter{secnumdepth}{3}
@@ -551,7 +557,7 @@
     \par%\vspace{\baselineskip}
     \hfill\rule{0.66\textwidth}{0.4pt}
     \par\vspace{0.2\textheight}
-    \hfill\normalfont\textbf{\sffamily\Huge\RevuTitolo}
+    \hfill\usekomafont{sectioning}{\Huge\RevuTitolo}
     \par\normalsize\vspace{\baselineskip}
     \hfill\volumo@indiko\@volumo\hspace{2em}\kajero@indiko\@kajero\hspace{2em}
     \numero@indiko\@numero\hspace{2em}
