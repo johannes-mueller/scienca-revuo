@@ -551,10 +551,10 @@
     \thispagestyle{empty}
     \setkeys{titolpagxo}{#1}
     \begingroup
-    \hfill\fontsize{54}{54}\selectfont\titol@grize\sffamily\ISAE
-    \normalcolor\normalsize\par\vspace{\baselineskip}
+    \hfill\bgroup\fontsize{54}{54}\selectfont\titol@grize\sffamily\ISAE\egroup
+    \par\vspace{\baselineskip}
     \hfill\textsf{\small\isaelonge}
-    \par%\vspace{\baselineskip}
+    \par
     \hfill\rule{0.66\textwidth}{0.4pt}
     \par\vspace{0.2\textheight}
     \hfill\usekomafont{sectioning}{\Huge\RevuTitolo}
