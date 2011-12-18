@@ -245,11 +245,14 @@
 
 \tikzstyle{every picture}=[>=latex,font=\footnotesize]
 
+\pgfkeys{/pgf/number format/.cd, set thousands separator={}}
+
+
 \ifSR@Author@
 \pgfplotsset{
   every axis/.style={
-    width=10cm,
-    height=7.07cm,
+    width=12.7cm,
+    height=9cm,
     legend style={font=\footnotesize},
     tick label style={font=\footnotesize},
     label style={font=\small},
@@ -264,8 +267,8 @@
 \else
 \pgfplotsset{
   every axis/.style={
-    width=10cm,
-    height=7.07cm,
+    width=12.7cm,
+    height=9cm,
     legend style={font=},
     tick label style={font=},
     label style={font=\large},
