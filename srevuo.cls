@@ -148,7 +148,7 @@
 %%%%%%%%%%
 
 \newcommand\AuthorFont{\normalsize\scshape}
-\newcommand\SubtitleFont{\normalsize\sffamily\bfseries}
+\newcommand\SubtitleFont{\normalsize\sffamily}
 \newcommand\TitleFont{\usekomafont{sectioning}\Large}
 
 \newcommand\NewpageThreshold{140pt}
@@ -373,7 +373,7 @@
     \begingroup
     \flushleft
     \typeout{PART2 \the\pagetotal}
-    \noindent\bfseries\sffamily\Huge\titol@grize #1\normalfont\normalsize\hfill
+    \noindent\usekomafont{sectioning}{\Huge\titol@grize #1}\hfill
     \normalcolor\par\hfill\rule{\linewidth}{0.4pt}\hfill
     \global\FirstArticletrue
     \endgroup
@@ -565,7 +565,9 @@
     \vfill
     \hfill\TitlePageArt
     \vfill
-    \hfill\textsf{\fontsize{54}{54}\selectfont\titol@grize\@kajero /\@jaro}
+    \normalfont
+    \hfill\sffamily\fontsize{54}{54}\selectfont\titol@grize\@kajero /\@jaro
+    \normalfont\normalsize
     \newpage
     \endgroup
     \renewcommand{\cxi@eldono}{Scienca Revuo \@kajero /\@jaro}
