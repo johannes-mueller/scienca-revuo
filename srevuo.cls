@@ -148,7 +148,7 @@
 %%%%%%%%%%
 
 \newcommand\AuthorFont{\normalsize\scshape}
-\newcommand\SubtitleFont{\normalsize\sffamily}
+\newcommand\SubtitleFont{\large\sffamily}
 \newcommand\TitleFont{\usekomafont{sectioning}\Large}
 
 \newcommand\NewpageThreshold{140pt}
