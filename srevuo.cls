@@ -188,7 +188,7 @@
 \RequirePackage{ifxetex}
 \RequirePackage{ifluatex}
 \ifxetex
-  \UsePalatinoOptima
+  \ifSR@Author@\else\UsePalatinoOptima\fi
 \else\ifluatex
 %  \RequirePackage[no-math]{fontspec}
   %\RequirePackage{fontspec}
