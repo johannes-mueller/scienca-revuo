@@ -374,6 +374,7 @@
   \RequirePackage{titlesec}
   \newcommand\part@format[1]{%
     \clearpage
+    \suppressfloats[t]
     \thispagestyle{plain}
     \begingroup
     \flushleft
