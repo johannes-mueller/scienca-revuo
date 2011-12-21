@@ -124,7 +124,7 @@
 \ifSR@Author@
   \LoadClass[a4paper,DIV12,12pt]{scrartcl}
 \else
-  \LoadClass[a5paper,10pt,DIV14,openany,toc=left,headings=small]{scrbook}
+  \LoadClass[b5paper,10pt,DIV14,openany,toc=left,headings=small]{scrbook}
 \fi
 
 
