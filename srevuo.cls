@@ -194,7 +194,12 @@
 \RequirePackage{ifxetex}
 \RequirePackage{ifluatex}
 \ifxetex
-  \ifSR@Author@\else\UsePalatinoOptima\fi
+  \ifSR@Author@
+    \RequirePackage{textcomp}
+    \RequirePackage{gensymb}
+  \else
+    \UsePalatinoOptima
+  \fi
 \else\ifluatex
 %  \RequirePackage[no-math]{fontspec}
   %\RequirePackage{fontspec}
