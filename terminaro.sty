@@ -72,8 +72,16 @@
 
 \def\print@termino@ling#1#2{%
   \@trm@reset@trms%
+  \typeout{kunfonte}
   \setkeys{termino}{#2}%
   #1\trm@col\trm@print@trm@ling\trm@col\trm@fonto\\
+}
+
+\def\print@termino@ling@senfonte#1#2{%
+  \@trm@reset@trms%
+  \typeout{senfonte}
+  \setkeys{termino}{#2}%
+  #1\trm@col\trm@print@trm@ling\\
 }
 
 \def\vikipedio{vkp.}
@@ -124,20 +132,21 @@
 \setlength{\trm@fonto@col@width}{1.5cm}
 \def\trm@ling@col@width@rat{0.25}
 
+\def\trm@close@trmfile{%
+  \immediate\closeout\@terminoj \global\@terminojopenfalse%
+  \immediate\write18{sort \jobname.trm > \jobname.tmp && mv \jobname.tmp \jobname.trm}%
+}
 
 \def\terminaro{%
-  \immediate\closeout\@terminoj \global\@terminojopenfalse%
+  \trm@close@trmfile
   \def\@start@term##1|##2\@end@term{\print@termino@ling{##1}{##2}}%
-  \immediate\write18{sort \jobname.trm > \jobname.tmp && mv \jobname.tmp \jobname.trm}%
-  \section*{Terminaro}
-  \par\noindent%
-  \tablehead{\rowcolor[gray]{1.0}\toprule\textsf{esprimo} & \trm@ling@list@out & fnt. \\\midrule}%
   \setlength{\trm@term@col@width}{\textwidth}%
   \addtolength{\trm@term@col@width}{%
     \textwidth*\trm@ling@num*\real{-\trm@ling@col@width@rat}}%
   \addtolength{\trm@term@col@width}{-\trm@fonto@col@width}%
   \addtolength{\trm@term@col@width}{-2\tabcolsep*\trm@ling@num}%
   \addtolength{\trm@term@col@width}{-4\tabcolsep}%
+  \tablehead{\rowcolor[gray]{1.0}\toprule\textsf{esprimo} & \trm@ling@list@out & fnt. \\\midrule}%
   \small%
   \makeatletter%
   \begin{supertabular}{%
@@ -150,6 +159,35 @@
   \normalsize
   \trm@reset@ling@list
 }
+
+\def\terminarosenfonta{%
+  \trm@close@trmfile
+  \def\@start@term##1|##2\@end@term{\print@termino@ling@senfonte{##1}{##2}}%
+  \setlength{\trm@term@col@width}{\textwidth}%
+  \addtolength{\trm@term@col@width}{%
+    \textwidth*\trm@ling@num*\real{-\trm@ling@col@width@rat}}%
+  \addtolength{\trm@term@col@width}{-2\tabcolsep*\trm@ling@num}%
+  \addtolength{\trm@term@col@width}{-4\tabcolsep}%
+  \trm@terminaro@head%
+  \tablehead{\rowcolor[gray]{1.0}\toprule\textsf{esprimo} & \trm@ling@list@out \\\midrule}%
+  \small%
+  \makeatletter%
+  \begin{supertabular}{%
+      >{\raggedright}p{\trm@term@col@width}
+      *{\the\trm@ling@num}{p{0.25\textwidth}}}
+  \input{\jobname.trm}
+  \bottomrule
+  \end{supertabular}
+  \normalsize
+  \trm@reset@ling@list
+}
+
+\def\trm@terminaro@head{%
+  \section*{Terminaro}
+  \par\noindent%
+}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \endinput
