@@ -1,22 +1,3 @@
-%%   $Id: dtk.cls 24 2011-07-24 13:05:39Z herbert $
-%%
-%% This is file `dtk.cls',
-%%
-%% LaTeX Class for ``Die TeXnische Komoedie''.
-%%
-%% Copyright (C) 1995-1996 Gerd Neugebauer
-%% Copyright (C) 1997-2011 DANTE, Deutschsprachige
-%%                                Anwendervereinigung TeX e.V.
-%%
-%% It may be distributed and/or modified under the
-%% conditions of the LaTeX Project Public License, either version 1.3c
-%% of this license or (at your option) any later version.
-%% The latest version of this license is in
-%%    http://www.latex-project.org/lppl.txt
-%% and version 1.3c or later is part of all distributions of LaTeX
-%% version 2005/12/01 or later.
-%
-%
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesClass{srevuo}
 \newif\ifSR@Author@
@@ -25,46 +6,19 @@
 \newif\ifSR@lineno@
 \def\@@title{}
 \SR@lineno@false
-\ifx\documentclass\@undefined
-  \newcommand\RequirePackage[1]{
-    \chardef\SR@cat=\the\catcode`\@
-    \catcode`\@=11
-    \input{#1.sty}%
-    \catcode`\@=\SR@cat}
-  \let\LoadClass=\RequirePackage
-  \newcommand\InputIfFileExists[3]{%
-    \openin\SR@file #1
-    \ifeof\SR@file\closein\SR@file #3%
-    \else\closein\SR@file #2\input{#1}%
-    \fi}
-  \newcommand\DeclareOption{\@ifstar{\@gobble}{\SR@DeclareOption}}
-  \newcommand\SR@DeclareOption[2]{\@namedef{ds@#1}{#2}}
-  \let\ProcessOptions=\relax
-  \let\OptionNotUsed=\gobble
-  \def\ProvidesClass#1[#2]{\typeout{Document Style #1 #2}}
-  \newcommand\emph[1]{{\em #1}\/}
-  \newcommand\textbf[1]{{\bf #1}}
-  \newcommand\textrm[1]{{\rm #1}}
-  \newcommand\textsc[1]{{\sc #1}}
-  \newcommand\textsf[1]{{\sf #1}}
-  \newcommand\textsl[1]{{\sl #1\/}}
-  \newcommand\textit[1]{{\it #1\/}}
-  \newcommand\texttt[1]{{\tt #1}}
-
-  \@ifundefined{fontshape}{\let\fontshape=\@gobble}{}
-  \@ifundefined{selectfont}{\let\selectfont=\relax}{}
-
-  \newcommand\providescommand[2]{\ifx#1\@undefined\newcommand#1{#2}\fi}
-\fi
 \newread\SR@file
 \ProvidesClass{srevuo}
-\newcommand\SR@isnum[1]{%
-  \if!\ifnum9<1#1!\else_\fi
-      \expandafter\@firstoftwo
-  \else
-      \expandafter\@secondoftwo
-  \fi
+
+\RequirePackage{ifxetex}
+\RequirePackage{ifluatex}
+\ifxetex\else
+\ClassError{sr-johmue}{Ĉi momente SR kaj ĝiaj artikoloj nur komposteblas pere de XeLaTeX.}{
+     SR estas kompostata per unikodkapabla XeLaTeX. Eble estontece ankaŭ
+     LuaLaTeX taŭgos. Ĉi momente ne, ĉar LuaLaTeX ne subtenas la pakaĵon
+     polyglossia. pdfLaTeX ne funkcias ĉar biblatex.sty konfliktas kun
+     ucs.sty.  Do restas XeLaTeX kiel ununura taŭga kompostilo.
 }
+\fi
 \newcommand*\SR@@thelinenumber{\thepage-\arabic{linenumber}}
 %%%%
 \PassOptionsToPackage{table}{xcolor}
@@ -86,40 +40,8 @@
   \PassOptionsToPackage{\CurrentOption}{lineno}}
 \DeclareOption{running}{%
   \PassOptionsToPackage{\CurrentOption}{lineno}}
-\DeclareOption{ln-long}{\def\SR@@thelinenumber{%
-  %\def\Hugo{%
-  \ifoddNumberedPage% eigtl. Even!!!
-    \ifodd\c@page
-      \@tempswatrue %C
-    \else
-      \@tempswafalse %D
-    \fi
-  \else
-    \ifodd\c@page
-      \@tempswafalse %A
-    \else
-      \@tempswatrue %B
-    \fi
-  \fi
-  %}\Hugo
-  %\@tempcnta=\c@page
-  %\if@tempswa \advance\@tempcnta\@ne \fi
-  \if@tempswa \advance\c@page\@ne \fi
-  %\edef\thepage{\the\@tempcnta}%
-  \thepage-\arabic{linenumber}}}
 \DeclareOption{ln-short}{\def\SR@@thelinenumber{%
   \arabic{linenumber}}}
-\DeclareOption*{%
-  \SR@isnum{\CurrentOption}%
-    {\edef\SR@layout{\CurrentOption}}%
-    {%
-      \ifSR@Author@
-        \PassOptionsToClass{\CurrentOption}{scrartcl}
-      \else
-        \PassOptionsToClass{\CurrentOption}{scrbook}
-      \fi
-    }%
-}
 \ProcessOptions
 \ifSR@Author@
   \LoadClass[a4paper,DIV12,12pt]{scrartcl}
@@ -169,7 +91,6 @@
     BoldItalicFont = texgyrepagella-bolditalic.otf ]
     {texgyrepagella-regular.otf}
     \setsansfont[%
-    % BoldFont=ZapfHumanist601BT-Bold.otf,BoldItalicFont=ZapfHumanist601BT-BoldItalic.otf,
     BoldFont=ZapfHumanist601BT-Bold.otf,BoldItalicFont=ZapfHumanist601BT-BoldItalic.otf,
     ItalicFont=ZapfHumanist601BT-Italic.otf]
     {ZapfHumanist601BT-Roman.otf}
@@ -191,8 +112,6 @@
   \setkomafont{sectioning}{\normalfont\sffamily\bfseries}
   \setkomafont{partentry}{\normalfont\sffamily\large}
 }
-\RequirePackage{ifxetex}
-\RequirePackage{ifluatex}
 \ifxetex
   \ifSR@Author@
     \RequirePackage{textcomp}
@@ -201,44 +120,25 @@
     \UsePalatinoOptima
   \fi
 \else\ifluatex
-%  \RequirePackage[no-math]{fontspec}
-  %\RequirePackage{fontspec}
   \usepackage{luaotfload}
-%  \RequirePackage{unicode-math}  
- %  \setmathfont[range={"0000-"FFFF,
- %                    \mathup,\mathbfup,
- %                    \mathit,\mathbfit,
- %                    \mathsfup,\mathbfsfup,
- %                    \mathsfit,\mathbfsfit,
- %                    \mathbb,\mathit,
- %                    \mathbbit,
- %                    \mathscr,\mathbfscr,
- %                    \mathfrak,\mathbffrak}]{Latin Modern Math}
- % \setmathfont[math-style=TeX,
- %                 bold-style=TeX,
- %                 range={\mathcal,\mathbfcal},
- %                 StylisticSet=1]{Latin Modern Math} 
- % \setmathrm[ItalicFont=LMRoman10-Italic,
- %            BoldItalicFont=LMRoman10-BoldItalic]{Latin Modern Math}
- % \setmathsf{Latin Modern Math}
- % \setmathtt{Latin Modern Math}
- % \setboldmathrm{Latin Modern Math}
   \usepackage{luacode}
-%  \usepackage[utf8]{luainputenc}
+  \usepackage[utf8]{luainputenc}
 \else
    \ClassError{sr-johmue}{pdfTeX ne eblas pro unikodo.}{Vi devas uzi aŭ XeTeX aŭ LuaTeX.}
 \fi\fi
 \RequirePackage[verbose=true,final=true]{microtype}
 %
 \RequirePackage{fixltx2e}
+
+
 \RequirePackage{polyglossia}
 \RequirePackage{csquotes}
-\DeclareQuoteStyle{esperanto}{\textquotedblleft}{\textquotedblright}
-{\textquoteleft}{\textquoteright}
+\DeclareQuoteStyle{esperanto}{\textquotedblleft}{\textquotedblright}{\textquoteleft}{\textquoteright}
 \setquotestyle{esperanto}
 \setdefaultlanguage{esperanto}
 \RequirePackage[backend=biber]{biblatex}
 \newcommand*{\citewithauthor}[1]{\citeauthor{#1}~\cite{#1}}
+
 \ifSR@Author@\else
   \RequirePackage{graphicx,xspace}
   \RequirePackage[newcommands,newparameters]{ragged2e}
@@ -296,43 +196,43 @@
 \tikzstyle{every picture}+=[scale=0.707]
 \fi
 
-  \newcommand{\proton}[1]{%
-    \shade[ball color=black!70!white] (#1) circle (.25);\draw (#1) node{$+$};
-  }
-  % \neutron{xposition,yposition}
-  \newcommand{\neutron}[1]{%
-    \shade[ball color=black!30!white] (#1) circle (.25);
-  }
-  % \electron{xwidth,ywidth,rotation angle}
-  \newcommand{\electron}[3]{%
-    \draw[rotate = #3](0,0) ellipse (#1 and #2)[color=black];
-    \shade[ball color=black] (0,#2)[rotate=#3] circle (.1);
-  }
-  \newcommand{\nucleus}{%
-    \neutron{0.1,0.3}
-    \proton{0,0}
-    \neutron{0.3,0.2}
-    \proton{-0.2,0.1}
-    \neutron{-0.1,0.3}
-    \proton{0.2,-0.15}
-    \neutron{-0.05,-0.12}
-    \proton{0.17,0.21}
-  }
-  % \paircreation{impact parameter}
-  \newcommand{\paircreation}[1]{%
-    \draw[snake=coil, line after snake=0pt, segment aspect=0,%
-    segment length=5pt] (0,#1)-- +(-6,0)%
-    node[fill=white,draw=black, above=0.2cm,pos=0.5]%
-    {Alvenanta $\gamma$-fotono};%
-    \draw[-stealth,black!50!white](0,#1) -- ++ (5,2.5);%
-    \shade[ball color=black](0,#1)  --  ++(4,2.0)%
-    node[fill=white,draw=black, below right=0.2cm]%
-    {Positrono} circle(0.1);%
-    \draw[-stealth,black!50!white](0,#1) -- ++ (4,-2.0);%
-    \shade[ball color=black](0,#1)  --  ++(3.2,-1.6)%
-    node[fill=white,draw=black, above right=0.2cm]%
-    {Electrono} circle(0.1);%
-  }
+\newcommand{\proton}[1]{%
+  \shade[ball color=black!70!white] (#1) circle (.25);\draw (#1) node{$+$};
+}
+% \neutron{xposition,yposition}
+\newcommand{\neutron}[1]{%
+  \shade[ball color=black!30!white] (#1) circle (.25);
+}
+% \electron{xwidth,ywidth,rotation angle}
+\newcommand{\electron}[3]{%
+  \draw[rotate = #3](0,0) ellipse (#1 and #2)[color=black];
+  \shade[ball color=black] (0,#2)[rotate=#3] circle (.1);
+}
+\newcommand{\nucleus}{%
+  \neutron{0.1,0.3}
+  \proton{0,0}
+  \neutron{0.3,0.2}
+  \proton{-0.2,0.1}
+  \neutron{-0.1,0.3}
+  \proton{0.2,-0.15}
+  \neutron{-0.05,-0.12}
+  \proton{0.17,0.21}
+}
+% \paircreation{impact parameter}
+\newcommand{\paircreation}[1]{%
+  \draw[snake=coil, line after snake=0pt, segment aspect=0,%
+  segment length=5pt] (0,#1)-- +(-6,0)%
+  node[fill=white,draw=black, above=0.2cm,pos=0.5]%
+  {Alvenanta $\gamma$-fotono};%
+  \draw[-stealth,black!50!white](0,#1) -- ++ (5,2.5);%
+  \shade[ball color=black](0,#1)  --  ++(4,2.0)%
+  node[fill=white,draw=black, below right=0.2cm]%
+  {Positrono} circle(0.1);%
+  \draw[-stealth,black!50!white](0,#1) -- ++ (4,-2.0);%
+  \shade[ball color=black](0,#1)  --  ++(3.2,-1.6)%
+  node[fill=white,draw=black, above right=0.2cm]%
+  {Electrono} circle(0.1);%
+}
 \newcommand*{\TitlePageArt}{%
   \tiny
   \hfill
@@ -365,6 +265,28 @@
 
 \newcommand*{\person}[1]{\textsc{#1}}
 \newcommand*{\alilingve}[2]{\textit{#2}}
+
+\newcommand{\RedakciaNoto}[2][]{
+  \def\@@temp{#1}
+  \ifx\@@temp\@empty
+    \def\@al@{}
+  \else
+    \def\@al@{\textbf{@#1:}\xspace}
+  \fi
+  \marginpar{\footnotesize\raggedright\sffamily\@al@#2}
+}
+
+\DeclareRobustCommand{\NeEnRevuo}[1]{\ifSR@Author@#1\fi}
+
+
+\RequirePackage{picins}
+\newcommand\autoro[1][]{%
+  \section*{La aŭtoro}
+  \def\@@temp{#1}%
+  \ifx\@@temp\@empty\else%
+    \parpic[r][t]{\includegraphics[width=0.2\textwidth]{\@@temp}}
+  \fi
+}
 
 
 \newlength{\part@head@height}
@@ -408,7 +330,7 @@
 \newif\ifFirstArticle
 \FirstArticletrue
 \ifSR@Author@
-  \renewcommand\part{%
+  \renewcommand{\part}{%
     \typeout{*** Parts can not be used in single articles.}}
 \else
 \renewcommand\part[2][]{%
@@ -580,47 +502,6 @@
   }
 \fi
 
-
-
-%\ifSR@Author@\else
-% \RequirePackage{multicol}
-% \newcommand{\addressname}{La Aŭtoroj}
-% \newenvironment{theaddresses}{%
-%   \chapter{\addressname}\Label{addresses}
-%   \begingroup
-%     \columnsep=10pt
-%     \addresssize
-%     \def\addressitem##1##2##3{%
-%       \par
-%       \parbox{\columnwidth}{
-%       \textbf{##1}\hfill[\ignorespaces ##3]%
-%       \\ ##2}}
-%     \begin{multicols}{2}%
-%       \raggedbottom
-%       \raggedright
-% }{%
-%     \end{multicols}%
-%   \endgroup
-%   }
-% \fi
-% \newcommand\addresssize{\footnotesize\parskip=6pt plus 2pt minus 3pt}
-% \ifSR@Author@
-%   \newcommand\listofaddresses{%
-%     \typeout{*** listofaddresses not supported in articles.}}
-%   \let\makeaddresses\relax% RN 2005-01-15
-% \else
-%   \newcommand\listofaddresses{%
-%     \InputIfFileExists{\jobname.gls}{}{%
-%       \typeout{No file \jobname.gls.}%
-%       \typeout{Use the following command to create it:^^J%
-%         \@spaces makeindex -s dtk.ist -o \jobname.gls \jobname.glo}%
-%       \typeout{\space}}%
-%   }
-%   \let\makeaddresses\makeglossary
-%\fi
-
-
-
 \ifSR@Author@
   \renewcommand\tableofcontents{%
     \typeout{*** tabelofcontents not supported in articles.}}
@@ -685,7 +566,7 @@
       \SR@embedded@documentclasshook
       \SR@eat@version}%
     \renewcommand*\usepackage[2][]{}
-%    \let\pagestyle\@gobble
+    \let\pagestyle\@gobble
     \let\thispagestyle\@gobble
     \let\nocite\@gobble
     \let\listfiles\relax
@@ -719,26 +600,6 @@
   }{}
 }
 
-\DeclareRobustCommand{\NeEnRevuo}[1]{\ifSR@Author@#1\fi}
-
-\newcommand{\RedakciaNoto}[2][]{
-  \def\@@temp{#1}
-  \ifx\@@temp\@empty
-    \def\@al@{}
-  \else
-    \def\@al@{\textbf{@#1:}\xspace}
-  \fi
-  \marginpar{\footnotesize\raggedright\sffamily\@al@#2}
-}
-
-\RequirePackage{picins}
-\newcommand\autoro[1][]{%
-  \section*{La aŭtoro}
-  \def\@@temp{#1}%
-  \ifx\@@temp\@empty\else%
-    \parpic[r][t]{\includegraphics[width=0.2\textwidth]{\@@temp}}
-  \fi
-}
 
 \RequirePackage{terminaro}
 
