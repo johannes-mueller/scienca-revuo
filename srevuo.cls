@@ -603,14 +603,14 @@
 \ifSR@Author@\else
 \AtBeginDocument{%
   \renewcommand\ref[1]{\Ref{\Label@Prefix:#1}}
-  \def\label{\@ifnextchar[\label@optarg\label@noarg}%]
-  \def\label@noarg#1{%
+  \def\label{\@ifnextchar[\SR@label@optarg\SR@label@noarg}%]
+  \def\SR@label@noarg#1{%
     \@bsphack%
     \cref@old@label{\Label@Prefix:#1}%
     \protected@write\@auxout{}%
       {\string\newlabel{cref@\Label@Prefix:#1}{{\cref@currentlabel}{\thepage}}}%
     \@esphack}%
-  \def\label@optarg[#1]#2{%
+  \def\SR@label@optarg[#1]#2{%
     \@bsphack%
     \cref@old@label{\Label@Prefix:#2}%
     \protected@xdef\cref@currentlabel{%
@@ -621,6 +621,7 @@
     \@esphack}%
   \let\SR@old@cref=\@cref
   \def\@cref#1#2{\SR@old@cref{#1}{\Label@Prefix:#2}}
+  \def\Label{\@ifnextchar[\label@optarg\label@noarg}%]
   \renewcommand\pageref[1]{\Pageref{\Label@Prefix:#1}}
 }
 \fi
