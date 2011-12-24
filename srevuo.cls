@@ -364,6 +364,7 @@
   \autodot\enskip
 }
 
+
 \newcommand\keywords[1]{\def\SR@keywords{#1}}
 \def\SR@keywords{}
   \let\orig@title=\title
@@ -454,20 +455,6 @@
 \renewcommand\thefigure{\arabic{figure}}
 \renewcommand\thetable{\arabic{table}}
 \renewcommand\theequation{\arabic{equation}}
-\newcount\DTL@label
-\DTL@label=0
-\newcommand\Advance@Label@Prefix{%
-  \advance\DTL@label 1
-  \xdef\Label@Prefix{module \the\DTL@label:}}
-\Advance@Label@Prefix
-\let\Ref=\ref
-\let\Label=\label
-\let\Pageref=\pageref
-\ifSR@Author@\else
-  \renewcommand\ref[1]{\Ref{\Label@Prefix:#1}}
-  \renewcommand\label[1]{\Label{\Label@Prefix:#1}}
-  \renewcommand\pageref[1]{\Pageref{\Label@Prefix:#1}}
-\fi
 
 \ifSR@Author@\else
   \newcommand{\cxi@eldono}{Scienca Revuo x/xxxx}
@@ -604,159 +591,193 @@
 \RequirePackage{terminaro}
 
 \RequirePackage{cleveref}
-  \AtBeginDocument{%
-    \def\crefrangeconjunction@preamble{ ĝis\nobreakspace}%
-    \def\crefrangepreconjunction@preamble{}%
-    \def\crefrangepostconjunction@preamble{}%
-    \def\crefpairconjunction@preamble{ kaj\nobreakspace}%
-    \def\crefmiddleconjunction@preamble{, }%
-    \def\creflastconjunction@preamble{ kaj\nobreakspace}%
-    \def\crefpairgroupconjunction@preamble{ kaj\nobreakspace}%
-    \def\crefmiddlegroupconjunction@preamble{, }%
-    \def\creflastgroupconjunction@preamble{ kaj\nobreakspace}%
-    \Crefname@preamble{equation}{Ekvacio}{Ekvacioj}%
-    \Crefname@preamble{part}{Parto}{Partoj}%
-    \Crefname@preamble{chapter}{Ĉapitro}{Ĉapitroj}%
-    \Crefname@preamble{section}{Sekcio}{Sekcioj}%
-    \Crefname@preamble{appendix}{Aldono}{Aldonoj}%
-    \Crefname@preamble{enumi}{Punkto}{Punktoj}%
-    \Crefname@preamble{footnote}{Piednoto}{Piednotoj}%
-    \Crefname@preamble{figure}{Figuro}{Figuroj}%
-    \Crefname@preamble{table}{Tabelo}{Tabeloj}%
-    \Crefname@preamble{theorem}{Teoremo}{Teoremoj}%
-    \Crefname@preamble{lemma}{Lemo}{Lemoj}%
-    \Crefname@preamble{corollary}{Korolario}{Korolarioj}%
-    \Crefname@preamble{proposition}{Propozicio}{Propozicioj}%
-    \Crefname@preamble{definition}{Defino}{Definoj}%
-    \Crefname@preamble{result}{Rezulto}{Rezultoj}%
-    \Crefname@preamble{example}{Ekzemplo}{Ekzemploj}%
-    \Crefname@preamble{remark}{Rimarko}{Rimarkoj}%
-    \Crefname@preamble{note}{Noto}{Notoj}%
-    \Crefname@preamble{algorithm}{Algoritmo}{Algoritmoj}%
-    \Crefname@preamble{listing}{Listado}{Listadoj}%
-    \Crefname@preamble{line}{Linio}{Linioj}%
-    \if@cref@capitalise%
-      \crefname@preamble{equation}{Ekvacio}{Ekvacioj}%
-      \crefname@preamble{part}{Parto}{Partoj}%
-      \crefname@preamble{chapter}{Ĉapitro}{Ĉapitroj}%
-      \crefname@preamble{section}{Sekcio}{Sekcioj}%
-      \crefname@preamble{appendix}{Aldono}{Aldonoj}%
-      \crefname@preamble{enumi}{Punkto}{Punktoj}%
-      \crefname@preamble{footnote}{Piednoto}{Piednotoj}%
-      \crefname@preamble{figure}{Figuro}{Figuroj}%
-      \crefname@preamble{table}{Tabelo}{Tabeloj}%
-      \crefname@preamble{theorem}{Teoremo}{Teoremoj}%
-      \crefname@preamble{lemma}{Lemo}{Lemoj}%
-      \crefname@preamble{corollary}{Korolario}{Korolarioj}%
-      \crefname@preamble{proposition}{Propozicio}{Propozicioj}%
-      \crefname@preamble{definition}{Defino}{Definoj}%
-      \crefname@preamble{result}{Rezulto}{Rezultoj}%
-      \crefname@preamble{example}{Ekzemplo}{Ekzemploj}%
-      \crefname@preamble{remark}{Rimarko}{Rimarkoj}%
-      \crefname@preamble{note}{Noto}{Notoj}%
-      \crefname@preamble{algorithm}{Algoritmo}{Algoritmoj}%
-      \crefname@preamble{listing}{Listado}{Listadoj}%
-      \crefname@preamble{line}{Linio}{Linioj}%
-    \else%
-      \crefname@preamble{equation}{ekvacio}{ekvacioj}%
-      \crefname@preamble{part}{parto}{partoj}%
-      \crefname@preamble{chapter}{ĉapitro}{ĉapitroj}%
-      \crefname@preamble{section}{sekcio}{sekcioj}%
-      \crefname@preamble{appendix}{aldono}{aldonoj}%
-      \crefname@preamble{enumi}{punkto}{punktoj}%
-      \crefname@preamble{footnote}{piednoto}{piednotoj}%
-      \crefname@preamble{figure}{figuro}{figuroj}%
-      \crefname@preamble{table}{tabelo}{tabeloj}%
-      \crefname@preamble{theorem}{teoremo}{teoremoj}%
-      \crefname@preamble{lemma}{lemo}{lemoj}%
-      \crefname@preamble{corollary}{korolario}{korolarioj}%
-      \crefname@preamble{proposition}{propozicio}{propozicioj}%
-      \crefname@preamble{definition}{defino}{definoj}%
-      \crefname@preamble{result}{rezulto}{rezultoj}%
-      \crefname@preamble{example}{ekzemplo}{ekzemploj}%
-      \crefname@preamble{remark}{rimarko}{rimarkoj}%
-      \crefname@preamble{note}{noto}{notoj}%
-      \crefname@preamble{algorithm}{algoritmo}{algoritmoj}%
-      \crefname@preamble{listing}{listado}{listadoj}%
-      \crefname@preamble{line}{linio}{linioj}%
-    \fi%
-    \def\cref@language{esperanto}%
-    \renewcommand{\crefrangeconjunction}{ ĝis\nobreakspace}%
-    \renewcommand{\crefrangepreconjunction}{}%
-    \renewcommand{\crefrangepostconjunction}{}%
-    \renewcommand{\crefpairconjunction}{ kaj\nobreakspace}%
-    \renewcommand{\crefmiddleconjunction}{, }%
-    \renewcommand{\creflastconjunction}{ kaj\nobreakspace}%
-    \renewcommand{\crefpairgroupconjunction}{ kaj\nobreakspace}%
-    \renewcommand{\crefmiddlegroupconjunction}{, }%
-    \renewcommand{\creflastgroupconjunction}{ kaj\nobreakspace}%
-    \Crefname{equation}{Ekvacio}{Ekvacioj}%
-    \Crefname{part}{Parto}{Partoj}%
-    \Crefname{chapter}{Ĉapitro}{Ĉapitroj}%
-    \Crefname{section}{Sekcio}{Sekcioj}%
-    \Crefname{appendix}{Aldono}{Aldonoj}%
-    \Crefname{enumi}{Punkto}{Punktoj}%
-    \Crefname{footnote}{Piednoto}{Piednotoj}%
-    \Crefname{figure}{Figuro}{Figuroj}%
-    \Crefname{table}{Tabelo}{Tabeloj}%
-    \Crefname{theorem}{Teoremo}{Teoremoj}%
-    \Crefname{lemma}{Lemo}{Lemoj}%
-    \Crefname{corollary}{Korolario}{Korolarioj}%
-    \Crefname{proposition}{Propozicio}{Propozicioj}%
-    \Crefname{definition}{Defino}{Definoj}%
-    \Crefname{result}{Rezulto}{Rezultoj}%
-    \Crefname{example}{Ekzemplo}{Ekzemploj}%
-    \Crefname{remark}{Rimarko}{Rimarkoj}%
-    \Crefname{note}{Noto}{Notoj}%
-    \Crefname{algorithm}{Algoritmo}{Algoritmoj}%
-    \Crefname{listing}{Listado}{Listadoj}%
-    \Crefname{line}{Linio}{Linioj}%
-    \if@cref@capitalise%
-      \crefname{equation}{Ekvacio}{Ekvacioj}%
-      \crefname{part}{Parto}{Partoj}%
-      \crefname{chapter}{Ĉapitro}{Ĉapitroj}%
-      \crefname{section}{Sekcio}{Sekcioj}%
-      \crefname{appendix}{Aldono}{Aldonoj}%
-      \crefname{enumi}{Punkto}{Punktoj}%
-      \crefname{footnote}{Piednoto}{Piednotoj}%
-      \crefname{figure}{Figuro}{Figuroj}%
-      \crefname{table}{Tabelo}{Tabeloj}%
-      \crefname{theorem}{Teoremo}{Teoremoj}%
-      \crefname{lemma}{Lemo}{Lemoj}%
-      \crefname{corollary}{Korolario}{Korolarioj}%
-      \crefname{proposition}{Propozicio}{Propozicioj}%
-      \crefname{definition}{Defino}{Definoj}%
-      \crefname{result}{Rezulto}{Rezultoj}%
-      \crefname{example}{Ekzemplo}{Ekzemploj}%
-      \crefname{remark}{Rimarko}{Rimarkoj}%
-      \crefname{note}{Noto}{Notoj}%
-      \crefname{algorithm}{Algoritmo}{Algoritmoj}%
-      \crefname{listing}{Listado}{Listadoj}%
-      \crefname{line}{Linio}{Linioj}%
-    \else%
-      \crefname{equation}{ekvacio}{ekvacioj}%
-      \crefname{part}{parto}{partoj}%
-      \crefname{chapter}{ĉapitro}{ĉapitroj}%
-      \crefname{section}{sekcio}{sekcioj}%
-      \crefname{appendix}{aldono}{aldonoj}%
-      \crefname{enumi}{punkto}{punktoj}%
-      \crefname{footnote}{piednoto}{piednotoj}%
-      \crefname{figure}{figuro}{figuroj}%
-      \crefname{table}{tabelo}{tabeloj}%
-      \crefname{theorem}{teoremo}{teoremoj}%
-      \crefname{lemma}{lemo}{lemoj}%
-      \crefname{corollary}{korolario}{korolarioj}%
-      \crefname{proposition}{propozicio}{propozicioj}%
-      \crefname{definition}{defino}{definoj}%
-      \crefname{result}{rezulto}{rezultoj}%
-      \crefname{example}{ekzemplo}{ekzemploj}%
-      \crefname{remark}{rimarko}{rimarkoj}%
-      \crefname{note}{noto}{notoj}%
-      \crefname{algorithm}{algoritmo}{algoritmoj}%
-      \crefname{listing}{listado}{listadoj}%
-      \crefname{line}{linio}{linioj}%
-    \fi%
-    }
+\newcount\DTL@label
+\DTL@label=0
+\newcommand\Advance@Label@Prefix{%
+  \advance\DTL@label 1
+  \xdef\Label@Prefix{module \the\DTL@label:}}
+\Advance@Label@Prefix
+\let\Ref=\ref
+\let\Label=\label
+\let\Pageref=\pageref
+\ifSR@Author@\else
+\AtBeginDocument{%
+  \renewcommand\ref[1]{\Ref{\Label@Prefix:#1}}
+  \def\label{\@ifnextchar[\label@optarg\label@noarg}%]
+  \def\label@noarg#1{%
+    \@bsphack%
+    \cref@old@label{\Label@Prefix:#1}%
+    \protected@write\@auxout{}%
+      {\string\newlabel{cref@\Label@Prefix:#1}{{\cref@currentlabel}{\thepage}}}%
+    \@esphack}%
+  \def\label@optarg[#1]#2{%
+    \@bsphack%
+    \cref@old@label{\Label@Prefix:#2}%
+    \protected@xdef\cref@currentlabel{%
+      \expandafter\cref@override@label@type%
+        \cref@currentlabel\@nil{#1}}%
+    \protected@write\@auxout{}%
+      {\string\newlabel{cref@\Label@Prefix:#2}{{\cref@currentlabel}{\thepage}}}%
+    \@esphack}%
+  \let\SR@old@cref=\@cref
+  \def\@cref#1#2{\SR@old@cref{#1}{\Label@Prefix:#2}}
+  \renewcommand\pageref[1]{\Pageref{\Label@Prefix:#1}}
+}
+\fi
+
+\AtBeginDocument{%
+  \def\crefrangeconjunction@preamble{ ĝis\nobreakspace}%
+  \def\crefrangepreconjunction@preamble{}%
+  \def\crefrangepostconjunction@preamble{}%
+  \def\crefpairconjunction@preamble{ kaj\nobreakspace}%
+  \def\crefmiddleconjunction@preamble{, }%
+  \def\creflastconjunction@preamble{ kaj\nobreakspace}%
+  \def\crefpairgroupconjunction@preamble{ kaj\nobreakspace}%
+  \def\crefmiddlegroupconjunction@preamble{, }%
+  \def\creflastgroupconjunction@preamble{ kaj\nobreakspace}%
+  \Crefname@preamble{equation}{Ekvacio}{Ekvacioj}%
+  \Crefname@preamble{part}{Parto}{Partoj}%
+  \Crefname@preamble{chapter}{Ĉapitro}{Ĉapitroj}%
+  \Crefname@preamble{section}{Sekcio}{Sekcioj}%
+  \Crefname@preamble{appendix}{Aldono}{Aldonoj}%
+  \Crefname@preamble{enumi}{Punkto}{Punktoj}%
+  \Crefname@preamble{footnote}{Piednoto}{Piednotoj}%
+  \Crefname@preamble{figure}{Figuro}{Figuroj}%
+  \Crefname@preamble{table}{Tabelo}{Tabeloj}%
+  \Crefname@preamble{theorem}{Teoremo}{Teoremoj}%
+  \Crefname@preamble{lemma}{Lemo}{Lemoj}%
+  \Crefname@preamble{corollary}{Korolario}{Korolarioj}%
+  \Crefname@preamble{proposition}{Propozicio}{Propozicioj}%
+  \Crefname@preamble{definition}{Defino}{Definoj}%
+  \Crefname@preamble{result}{Rezulto}{Rezultoj}%
+  \Crefname@preamble{example}{Ekzemplo}{Ekzemploj}%
+  \Crefname@preamble{remark}{Rimarko}{Rimarkoj}%
+  \Crefname@preamble{note}{Noto}{Notoj}%
+  \Crefname@preamble{algorithm}{Algoritmo}{Algoritmoj}%
+  \Crefname@preamble{listing}{Listado}{Listadoj}%
+  \Crefname@preamble{line}{Linio}{Linioj}%
+  \if@cref@capitalise%
+  \crefname@preamble{equation}{Ekvacio}{Ekvacioj}%
+  \crefname@preamble{part}{Parto}{Partoj}%
+  \crefname@preamble{chapter}{Ĉapitro}{Ĉapitroj}%
+  \crefname@preamble{section}{Sekcio}{Sekcioj}%
+  \crefname@preamble{appendix}{Aldono}{Aldonoj}%
+  \crefname@preamble{enumi}{Punkto}{Punktoj}%
+  \crefname@preamble{footnote}{Piednoto}{Piednotoj}%
+  \crefname@preamble{figure}{Figuro}{Figuroj}%
+  \crefname@preamble{table}{Tabelo}{Tabeloj}%
+  \crefname@preamble{theorem}{Teoremo}{Teoremoj}%
+  \crefname@preamble{lemma}{Lemo}{Lemoj}%
+  \crefname@preamble{corollary}{Korolario}{Korolarioj}%
+  \crefname@preamble{proposition}{Propozicio}{Propozicioj}%
+  \crefname@preamble{definition}{Defino}{Definoj}%
+  \crefname@preamble{result}{Rezulto}{Rezultoj}%
+  \crefname@preamble{example}{Ekzemplo}{Ekzemploj}%
+  \crefname@preamble{remark}{Rimarko}{Rimarkoj}%
+  \crefname@preamble{note}{Noto}{Notoj}%
+  \crefname@preamble{algorithm}{Algoritmo}{Algoritmoj}%
+  \crefname@preamble{listing}{Listado}{Listadoj}%
+  \crefname@preamble{line}{Linio}{Linioj}%
+  \else%
+  \crefname@preamble{equation}{ekvacio}{ekvacioj}%
+  \crefname@preamble{part}{parto}{partoj}%
+  \crefname@preamble{chapter}{ĉapitro}{ĉapitroj}%
+  \crefname@preamble{section}{sekcio}{sekcioj}%
+  \crefname@preamble{appendix}{aldono}{aldonoj}%
+  \crefname@preamble{enumi}{punkto}{punktoj}%
+  \crefname@preamble{footnote}{piednoto}{piednotoj}%
+  \crefname@preamble{figure}{figuro}{figuroj}%
+  \crefname@preamble{table}{tabelo}{tabeloj}%
+  \crefname@preamble{theorem}{teoremo}{teoremoj}%
+  \crefname@preamble{lemma}{lemo}{lemoj}%
+  \crefname@preamble{corollary}{korolario}{korolarioj}%
+  \crefname@preamble{proposition}{propozicio}{propozicioj}%
+  \crefname@preamble{definition}{defino}{definoj}%
+  \crefname@preamble{result}{rezulto}{rezultoj}%
+  \crefname@preamble{example}{ekzemplo}{ekzemploj}%
+  \crefname@preamble{remark}{rimarko}{rimarkoj}%
+  \crefname@preamble{note}{noto}{notoj}%
+  \crefname@preamble{algorithm}{algoritmo}{algoritmoj}%
+  \crefname@preamble{listing}{listado}{listadoj}%
+  \crefname@preamble{line}{linio}{linioj}%
+  \fi%
+  \def\cref@language{esperanto}%
+  \renewcommand{\crefrangeconjunction}{ ĝis\nobreakspace}%
+  \renewcommand{\crefrangepreconjunction}{}%
+  \renewcommand{\crefrangepostconjunction}{}%
+  \renewcommand{\crefpairconjunction}{ kaj\nobreakspace}%
+  \renewcommand{\crefmiddleconjunction}{, }%
+  \renewcommand{\creflastconjunction}{ kaj\nobreakspace}%
+  \renewcommand{\crefpairgroupconjunction}{ kaj\nobreakspace}%
+  \renewcommand{\crefmiddlegroupconjunction}{, }%
+  \renewcommand{\creflastgroupconjunction}{ kaj\nobreakspace}%
+  \Crefname{equation}{Ekvacio}{Ekvacioj}%
+  \Crefname{part}{Parto}{Partoj}%
+  \Crefname{chapter}{Ĉapitro}{Ĉapitroj}%
+  \Crefname{section}{Sekcio}{Sekcioj}%
+  \Crefname{appendix}{Aldono}{Aldonoj}%
+  \Crefname{enumi}{Punkto}{Punktoj}%
+  \Crefname{footnote}{Piednoto}{Piednotoj}%
+  \Crefname{figure}{Figuro}{Figuroj}%
+  \Crefname{table}{Tabelo}{Tabeloj}%
+  \Crefname{theorem}{Teoremo}{Teoremoj}%
+  \Crefname{lemma}{Lemo}{Lemoj}%
+  \Crefname{corollary}{Korolario}{Korolarioj}%
+  \Crefname{proposition}{Propozicio}{Propozicioj}%
+  \Crefname{definition}{Defino}{Definoj}%
+  \Crefname{result}{Rezulto}{Rezultoj}%
+  \Crefname{example}{Ekzemplo}{Ekzemploj}%
+  \Crefname{remark}{Rimarko}{Rimarkoj}%
+  \Crefname{note}{Noto}{Notoj}%
+  \Crefname{algorithm}{Algoritmo}{Algoritmoj}%
+  \Crefname{listing}{Listado}{Listadoj}%
+  \Crefname{line}{Linio}{Linioj}%
+  \if@cref@capitalise%
+  \crefname{equation}{Ekvacio}{Ekvacioj}%
+  \crefname{part}{Parto}{Partoj}%
+  \crefname{chapter}{Ĉapitro}{Ĉapitroj}%
+  \crefname{section}{Sekcio}{Sekcioj}%
+  \crefname{appendix}{Aldono}{Aldonoj}%
+  \crefname{enumi}{Punkto}{Punktoj}%
+  \crefname{footnote}{Piednoto}{Piednotoj}%
+  \crefname{figure}{Figuro}{Figuroj}%
+  \crefname{table}{Tabelo}{Tabeloj}%
+  \crefname{theorem}{Teoremo}{Teoremoj}%
+  \crefname{lemma}{Lemo}{Lemoj}%
+  \crefname{corollary}{Korolario}{Korolarioj}%
+  \crefname{proposition}{Propozicio}{Propozicioj}%
+  \crefname{definition}{Defino}{Definoj}%
+  \crefname{result}{Rezulto}{Rezultoj}%
+  \crefname{example}{Ekzemplo}{Ekzemploj}%
+  \crefname{remark}{Rimarko}{Rimarkoj}%
+  \crefname{note}{Noto}{Notoj}%
+  \crefname{algorithm}{Algoritmo}{Algoritmoj}%
+  \crefname{listing}{Listado}{Listadoj}%
+  \crefname{line}{Linio}{Linioj}%
+  \else%
+  \crefname{equation}{ekvacio}{ekvacioj}%
+  \crefname{part}{parto}{partoj}%
+  \crefname{chapter}{ĉapitro}{ĉapitroj}%
+  \crefname{section}{sekcio}{sekcioj}%
+  \crefname{appendix}{aldono}{aldonoj}%
+  \crefname{enumi}{punkto}{punktoj}%
+  \crefname{footnote}{piednoto}{piednotoj}%
+  \crefname{figure}{figuro}{figuroj}%
+  \crefname{table}{tabelo}{tabeloj}%
+  \crefname{theorem}{teoremo}{teoremoj}%
+  \crefname{lemma}{lemo}{lemoj}%
+  \crefname{corollary}{korolario}{korolarioj}%
+  \crefname{proposition}{propozicio}{propozicioj}%
+  \crefname{definition}{defino}{definoj}%
+  \crefname{result}{rezulto}{rezultoj}%
+  \crefname{example}{ekzemplo}{ekzemploj}%
+  \crefname{remark}{rimarko}{rimarkoj}%
+  \crefname{note}{noto}{notoj}%
+  \crefname{algorithm}{algoritmo}{algoritmoj}%
+  \crefname{listing}{listado}{listadoj}%
+  \crefname{line}{linio}{linioj}%
+  \fi%
+}
 
 \endinput
 %%
