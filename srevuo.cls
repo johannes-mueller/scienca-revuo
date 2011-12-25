@@ -361,6 +361,7 @@
     \ifdim\dimen0<0pt
       \dimen0=\NewpageThreshold
     \fi
+    \relax
     \ifdim\dimen0<\NewpageThreshold
       \newpage
       \global\FirstArticletrue
