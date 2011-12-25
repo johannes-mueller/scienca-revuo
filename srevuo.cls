@@ -46,7 +46,7 @@
 \ifSR@Author@
   \LoadClass[a4paper,DIV12,12pt]{scrartcl}
 \else
-  \LoadClass[b5paper,10pt,DIV14,openany,toc=left,headings=small]{scrbook}
+  \LoadClass[b5paper,10pt,DIV14,openany,twoside,toc=left,headings=small]{scrartcl}
 \fi
 
 
@@ -398,9 +398,8 @@
   \setup@title%
   \let\thanks\@gobble%
   \ifx\@author\@empty\else%
-  \addcontentsline{toc}{chapter}{%
-       \normalfont\@@title\newline\AuthorFont\@author%
-     }%
+    \addtocontents{toc}{%
+      \protect\contentsline{part}{\normalfont\@@title\newline\AuthorFont\@author}{\thepage}}%
   \fi%
   \endgroup%
   \let\@title=\@empty%
@@ -421,7 +420,7 @@
 \let\@author=\@empty
 \let\@thanks=\@empty
 \ifSR@Author@\else
-\newenvironment{abstract}{%
+\renewenvironment{abstract}{%
   \par\medskip
   \begin{quote}\small\sffamily
     }{%
@@ -493,25 +492,6 @@
   \par
 }
 \setcounter{tocdepth}{0}
-\renewcommand*{\othersectionlevelsformat}[3]{%
-  \def\@temp{section}%
-  \def\@@temp{#1}%
-  \ifx\@@temp\@temp%
-    \arabic{section}
-  \else
-    \def\@temp{subsection}%
-    \ifx\@@temp\@temp%
-      \arabic{section}.\arabic{subsection}
-    \else
-      \def\@temp{subsubsection}%
-      \ifx\@@temp\@temp%
-        \arabic{section}.\arabic{subsection}.\arabic{subsubsection}
-      \fi
-    \fi
-  \fi
-  \autodot\enskip
-}
-
 
 
 \pdfpagewidth\paperwidth\pdfpageheight\paperheight
