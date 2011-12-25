@@ -358,7 +358,9 @@
   \begingroup
     \dimen0=\vsize
     \advance\dimen0 by -\pagetotal
+    \typeout{Newpage \the\vsize, \the\pagetotal, \the\dimen0} 
     \ifdim\dimen0<\NewpageThreshold
+      \typeout{Newpage done}
       \newpage
       \global\FirstArticletrue
     \fi
