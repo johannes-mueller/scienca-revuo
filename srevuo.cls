@@ -345,26 +345,6 @@
 }
 \fi
 
-\renewcommand*{\othersectionlevelsformat}[3]{%
-  \def\@temp{section}%
-  \def\@@temp{#1}%
-  \ifx\@@temp\@temp%
-    \arabic{section}
-  \else
-    \def\@temp{subsection}%
-    \ifx\@@temp\@temp%
-      \arabic{section}.\arabic{subsection}
-    \else
-      \def\@temp{subsubsection}%
-      \ifx\@@temp\@temp%
-        \arabic{section}.\arabic{subsection}.\arabic{subsubsection}
-      \fi
-    \fi
-  \fi
-  \autodot\enskip
-}
-
-
 \newcommand\keywords[1]{\def\SR@keywords{#1}}
 \def\SR@keywords{}
   \let\orig@title=\title
@@ -418,7 +398,7 @@
   \setup@title%
   \let\thanks\@gobble%
   \ifx\@author\@empty\else%
-     \addcontentsline{toc}{chapter}{%
+  \addcontentsline{toc}{chapter}{%
        \normalfont\@@title\newline\AuthorFont\@author%
      }%
   \fi%
@@ -513,6 +493,25 @@
   \par
 }
 \setcounter{tocdepth}{0}
+\renewcommand*{\othersectionlevelsformat}[3]{%
+  \def\@temp{section}%
+  \def\@@temp{#1}%
+  \ifx\@@temp\@temp%
+    \arabic{section}
+  \else
+    \def\@temp{subsection}%
+    \ifx\@@temp\@temp%
+      \arabic{section}.\arabic{subsection}
+    \else
+      \def\@temp{subsubsection}%
+      \ifx\@@temp\@temp%
+        \arabic{section}.\arabic{subsection}.\arabic{subsubsection}
+      \fi
+    \fi
+  \fi
+  \autodot\enskip
+}
+
 
 
 \pdfpagewidth\paperwidth\pdfpageheight\paperheight
@@ -591,11 +590,11 @@
 \RequirePackage{terminaro}
 
 \RequirePackage{cleveref}
-\newcount\DTL@label
-\DTL@label=0
+\newcount\SR@label
+\SR@label=0
 \newcommand\Advance@Label@Prefix{%
-  \advance\DTL@label 1
-  \xdef\Label@Prefix{module \the\DTL@label:}}
+  \advance\SR@label 1
+  \xdef\Label@Prefix{artikolo-\the\SR@label:}}
 \Advance@Label@Prefix
 \let\Ref=\ref
 \let\Label=\label
@@ -603,25 +602,16 @@
 \ifSR@Author@\else
 \AtBeginDocument{%
   \renewcommand\ref[1]{\Ref{\Label@Prefix:#1}}
-  \def\label{\@ifnextchar[\SR@label@optarg\SR@label@noarg}%]
-  \def\SR@label@noarg#1{%
-    \@bsphack%
-    \cref@old@label{\Label@Prefix:#1}%
-    \protected@write\@auxout{}%
-      {\string\newlabel{cref@\Label@Prefix:#1}{{\cref@currentlabel}{\thepage}}}%
-    \@esphack}%
-  \def\SR@label@optarg[#1]#2{%
-    \@bsphack%
-    \cref@old@label{\Label@Prefix:#2}%
-    \protected@xdef\cref@currentlabel{%
-      \expandafter\cref@override@label@type%
-        \cref@currentlabel\@nil{#1}}%
-    \protected@write\@auxout{}%
-      {\string\newlabel{cref@\Label@Prefix:#2}{{\cref@currentlabel}{\thepage}}}%
-    \@esphack}%
+  \let\Label=\label
+  \renewcommand{\label}[2][\@empty]{%
+    \ifx #1\@empty%
+      \Label{\Label@Prefix:#2}%
+    \else%
+      \Label[#1]{\Label@Prefix:#2}%
+    \fi%
+  }%
   \let\SR@old@cref=\@cref
   \def\@cref#1#2{\SR@old@cref{#1}{\Label@Prefix:#2}}
-  \def\Label{\@ifnextchar[\label@optarg\label@noarg}%]
   \renewcommand\pageref[1]{\Pageref{\Label@Prefix:#1}}
 }
 \fi
