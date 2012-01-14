@@ -6,11 +6,21 @@
 \newif\ifSR@lineno@
 \def\@@title{}
 \SR@lineno@false
+\newif\ifuse@SR@fonts@
+\use@SR@fonts@false
 \newread\SR@file
 \ProvidesClass{srevuo}
 
+\newif\if@tex@ht@
+\@tex@ht@false
+% \@tex@ht@true
+% \@ifundefined{tex@ht}{\@tex@ht@false}
+% \if@tex@ht@
+%   \RequirePackage[html,charset=utf-8]{tex4ht}
+% \fi
+\RequirePackage{etoolbox}
 \RequirePackage{ifxetex}
-\RequirePackage{ifluatex}
+%\RequirePackage{ifluatex}
 \ifxetex\else
 \ClassError{sr-johmue}{Ĉi momente SR kaj ĝiaj artikoloj nur komposteblas pere de XeLaTeX.}{
      SR estas kompostata per unikodkapabla XeLaTeX. Eble estontece ankaŭ
@@ -22,12 +32,14 @@
 \newcommand*\SR@@thelinenumber{\thepage-\arabic{linenumber}}
 %%%%
 \PassOptionsToPackage{table}{xcolor}
+\PassOptionsToPackage{no-math}{fontspec}
 \DeclareOption{10pt}{\OptionNotUsed}
 \DeclareOption{11pt}{\OptionNotUsed}
 \DeclareOption{12pt}{\OptionNotUsed}
 \DeclareOption{twoside}{\OptionNotUsed}
 \DeclareOption{oneside}{\OptionNotUsed}
-\DeclareOption{full}{\SR@Author@false}
+\DeclareOption{full}{\SR@Author@false\use@SR@fonts@true}
+\DeclareOption{SRfonts}{\use@SR@fonts@true}
 \DeclareOption{draft}{%
   \SR@Draft@true
   \SR@lineno@true
@@ -105,30 +117,36 @@
 }
 \newcommand{\UseLibertineBiolinum}{%
   \RequirePackage{fontspec}
-  \RequirePackage{xunicode,xltxtra}
+  \RequirePackage{xunicode}
   \setmainfont[Numbers=OldStyle,BoldFont=fxldr.otf,BoldItalicFont=fxldro.otf,ItalicFont=fxlri.otf]{fxlr.otf}
   \setsansfont[Numbers=OldStyle,BoldFont=fxbb.otf,BoldItalicFont=fxbbo.otf,ItalicFont=fxbri.otf]{fxbr.otf}
   \newcommand{\micro}{µ}
   \setkomafont{sectioning}{\normalfont\sffamily\bfseries}
   \setkomafont{partentry}{\normalfont\sffamily\large}
 }
-\ifxetex
-  \ifSR@Author@
-    \RequirePackage{textcomp}
-    \RequirePackage{gensymb}
-  \else
-    \UsePalatinoOptima
-  \fi
-\else\ifluatex
-  \usepackage{luaotfload}
-  \usepackage{luacode}
-  \usepackage[utf8]{luainputenc}
+\ifuse@SR@fonts@
+  \UsePalatinoOptima
 \else
-   \ClassError{sr-johmue}{pdfTeX ne eblas pro unikodo.}{Vi devas uzi aŭ XeTeX aŭ LuaTeX.}
-\fi\fi
+  \RequirePackage{textcomp}
+  \RequirePackage{gensymb}
+\fi
+% \ifxetex
+%   \ifboolexpr{bool {SR@Author@} or bool {@tex@ht@}}{%
+%     \typeout{uzas tex4ht}
+%     \RequirePackage{textcomp}
+%     \RequirePackage{gensymb}
+%   }{%
+%     \typeout{ne uzas tex4ht}
+%     \UsePalatinoOptima
+%   }
+% \else\ifluatex
+%   \usepackage{luaotfload}
+%   \usepackage{luacode}
+%   \usepackage[utf8]{luainputenc}
+%\fi
 \RequirePackage[verbose=true,final=true]{microtype}
 %
-\RequirePackage{fixltx2e}
+%\RequirePackage{fixltx2e}
 
 
 \RequirePackage{polyglossia}
@@ -345,10 +363,8 @@
 }
 \fi
 
-\newcommand\keywords[1]{\def\SR@keywords{#1}}
-\def\SR@keywords{}
-  \let\orig@title=\title
-  \renewcommand{\title}[2][]{\orig@title{#2}}
+ \let\orig@title=\title
+ \renewcommand{\title}[2][]{\orig@title{#2}}
 \ifSR@Author@\else
 \renewcommand\title[2][]{%
   \gdef\@title{#2}%
@@ -427,7 +443,7 @@
 \renewenvironment{abstract}{%
   \par\medskip
   \begin{quote}\small\sffamily
-    }{%
+  \noindent}{%
   \end{quote}
   \par\bigskip
   \@endpefalse\@ignoretrue 
@@ -435,6 +451,16 @@
   \aftergroup\@afterheading 
 }
 \fi
+\newcommand*{\keywords}[1]{%
+  \begin{quote}\small\sffamily
+    \noindent\textbf{Kapvortoj:} \textit{#1}
+  \end{quote}
+  \par\bigskip
+  \@endpefalse\@ignoretrue 
+  \aftergroup\@afterindentfalse 
+  \aftergroup\@afterheading 
+}
+
 \renewcommand\thefigure{\arabic{figure}}
 \renewcommand\thetable{\arabic{table}}
 \renewcommand\theequation{\arabic{equation}}

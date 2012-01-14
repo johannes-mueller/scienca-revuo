@@ -34,7 +34,7 @@
   \ifx\@@temp\@empty
     \def\@@temp{#2}%
   \fi
-  \if@terminojopen \else \@openterminoj \fi
+  \if@terminojopen\else\@openterminoj\fi
   \immediate\write\@terminoj{\@start@term\@@temp|#3,\@end@term}%
 }
 
