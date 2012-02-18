@@ -430,6 +430,16 @@
 \renewcommand\thetable{\arabic{table}}
 \renewcommand\theequation{\arabic{equation}}
 
+\newcommand*{\artikoleto}[1]{%
+  \usekomafont{sectioning}{\Large\par\bigskip\noindent #1}
+  \par\medskip
+  \@endpefalse\@ignoretrue 
+  \@afterindentfalse 
+  \@afterheading
+}
+\newcommand*{\fonto}[1]{\par\medskip\noindent\textit{Fonto:} #1}
+
+
 \ifSR@Author@\else
   \newcommand{\cxi@eldono}{Scienca Revuo x/xxxx}
   \define@key{titolpagxo}{volumo}{\def\@volumo{#1}}
