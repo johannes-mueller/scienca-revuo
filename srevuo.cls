@@ -578,8 +578,9 @@
 \newcount\SR@label
 \SR@label=0
 \newcommand\Advance@Label@Prefix{%
-  \advance\SR@label 1
-  \xdef\Label@Prefix{artikolo-\the\SR@label:}}
+  \global\advance\SR@label by 1
+  \xdef\Label@Prefix{artikolo-\the\SR@label:}
+}
 \Advance@Label@Prefix
 \let\Ref=\ref
 \let\Label=\label
