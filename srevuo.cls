@@ -598,6 +598,10 @@
   }%
   \let\SR@old@cref=\@cref
   \def\@cref#1#2{\SR@old@cref{#1}{\Label@Prefix:#2}}
+  \@ifpackageloaded{amsmath}{%
+    \let\SR@old@label=\cref@label
+    \def\cref@label#1{\SR@old@label{\Label@Prefix:#1}}
+  }{}
   \renewcommand\pageref[1]{\Pageref{\Label@Prefix:#1}}
 }
 \fi
