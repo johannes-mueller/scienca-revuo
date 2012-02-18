@@ -431,8 +431,12 @@
 \renewcommand\theequation{\arabic{equation}}
 
 \newcommand*{\artikoleto}[1]{%
-  \usekomafont{sectioning}{\Large\par\bigskip\noindent #1}
-  \par\medskip
+  \usekomafont{sectioning}
+  \Large
+  \par\vspace{2em}
+  \noindent #1
+  \normalfont\normalsize
+  \par\vspace{1em}
   \@endpefalse\@ignoretrue 
   \@afterindentfalse 
   \@afterheading
