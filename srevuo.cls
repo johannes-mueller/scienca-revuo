@@ -342,6 +342,7 @@
     \gdef\@@part{#1}
   \fi
   \addcontentsline{toc}{part}{\@@part}
+  \FirstArticletrue
 }
 \fi
 
@@ -355,19 +356,8 @@
   \def\@@temp{#1}%
   \ifx\@@temp\@empty\gdef\@@title{#2}\else\gdef\@@title{#1}\fi}
 \newcommand\setup@title{%
-  \begingroup
-    \dimen0=\vsize
-    \advance\dimen0 by -\pagetotal
-    \ifdim\dimen0<0pt
-      \dimen0=\NewpageThreshold
-    \fi
-    \relax
-    \ifdim\dimen0<\NewpageThreshold
-      \newpage
-      \global\FirstArticletrue
-    \fi
-  \endgroup
-  \Advance@Label@Prefix%
+  \ifFirstArticle\else\newpage\fi
+  \global\FirstArticlefalse
   \begingroup
     \noindent
     \begin{minipage}{\textwidth}
@@ -398,6 +388,7 @@
   \aftergroup\@afterheading 
 }
 \renewcommand{\maketitle}{%
+  \Advance@Label@Prefix
   \begingroup
   \setup@title%
   \let\thanks\@gobble%
