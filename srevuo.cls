@@ -543,7 +543,6 @@
     \renewcommand*\usepackage[2][]{}
     \let\pagestyle\@gobble
     \let\thispagestyle\@gobble
-    \let\nocite\@gobble
     \let\listfiles\relax
     \let\nofiles\relax
     \renewcommand*\AtBeginDocument[1]{%
@@ -553,8 +552,7 @@
     \renewenvironment*{document}%
     {\SR@embedded@begindocumenthook}%
     {\SR@embedded@enddocumenthook}%
-    \renewcommand*{\bibliography}[1]{}
-    \newrefsection
+    \renewcommand*{\bibliography}[1]{\newrefsection[#1]}
     \input{\SR@local@inputname}%
   \endgroup
 }
