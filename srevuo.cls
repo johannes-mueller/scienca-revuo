@@ -360,6 +360,7 @@
     \gdef\@@part{#1}
   \fi
   \addcontentsline{toc}{part}{\@@part}
+  \FirstArticletrue
 }
 \fi
 
@@ -371,19 +372,8 @@
   \def\@@temp{#1}%
   \ifx\@@temp\@empty\gdef\@@title{#2}\else\gdef\@@title{#1}\fi}
 \newcommand\setup@title{%
-  \begingroup
-    \dimen0=\vsize
-    \advance\dimen0 by -\pagetotal
-    \ifdim\dimen0<0pt
-      \dimen0=\NewpageThreshold
-    \fi
-    \relax
-    \ifdim\dimen0<\NewpageThreshold
-      \newpage
-      \global\FirstArticletrue
-    \fi
-  \endgroup
-  \Advance@Label@Prefix%
+  \ifFirstArticle\else\newpage\fi
+  \global\FirstArticlefalse
   \begingroup
     \noindent
     \begin{minipage}{\textwidth}
@@ -414,6 +404,7 @@
   \aftergroup\@afterheading 
 }
 \renewcommand{\maketitle}{%
+  \Advance@Label@Prefix
   \begingroup
   \setup@title%
   \let\thanks\@gobble%
@@ -464,6 +455,20 @@
 \renewcommand\thefigure{\arabic{figure}}
 \renewcommand\thetable{\arabic{table}}
 \renewcommand\theequation{\arabic{equation}}
+
+\newcommand*{\artikoleto}[1]{%
+  \usekomafont{sectioning}
+  \Large
+  \par\vspace{2em}
+  \noindent #1
+  \normalfont\normalsize
+  \par\vspace{1em}
+  \@endpefalse\@ignoretrue 
+  \@afterindentfalse 
+  \@afterheading
+}
+\newcommand*{\fonto}[1]{\par\medskip\noindent\textit{Fonto:} #1}
+
 
 \ifSR@Author@\else
   \newcommand{\cxi@eldono}{Scienca Revuo x/xxxx}
@@ -564,7 +569,6 @@
     \renewcommand*\usepackage[2][]{}
     \let\pagestyle\@gobble
     \let\thispagestyle\@gobble
-    \let\nocite\@gobble
     \let\listfiles\relax
     \let\nofiles\relax
     \renewcommand*\AtBeginDocument[1]{%
@@ -574,8 +578,7 @@
     \renewenvironment*{document}%
     {\SR@embedded@begindocumenthook}%
     {\SR@embedded@enddocumenthook}%
-    \renewcommand*{\bibliography}[1]{}
-    \newrefsection
+    \renewcommand*{\bibliography}[1]{\newrefsection[#1]}
     \input{\SR@local@inputname}%
   \endgroup
 }
@@ -603,8 +606,9 @@
 \newcount\SR@label
 \SR@label=0
 \newcommand\Advance@Label@Prefix{%
-  \advance\SR@label 1
-  \xdef\Label@Prefix{artikolo-\the\SR@label:}}
+  \global\advance\SR@label by 1
+  \xdef\Label@Prefix{artikolo-\the\SR@label:}
+}
 \Advance@Label@Prefix
 \let\Ref=\ref
 \let\Label=\label
@@ -622,6 +626,10 @@
   }%
   \let\SR@old@cref=\@cref
   \def\@cref#1#2{\SR@old@cref{#1}{\Label@Prefix:#2}}
+  \@ifpackageloaded{amsmath}{%
+    \let\SR@old@label=\cref@label
+    \def\cref@label#1{\SR@old@label{\Label@Prefix:#1}}
+  }{}
   \renewcommand\pageref[1]{\Pageref{\Label@Prefix:#1}}
 }
 \fi
