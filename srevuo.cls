@@ -434,7 +434,7 @@
 \renewenvironment{abstract}{%
   \par\medskip
   \begin{quote}\small\sffamily
-  \noindent}{%
+  \noindent\ignorespaces}{%
   \end{quote}
   \par\bigskip
   \@endpefalse\@ignoretrue 
