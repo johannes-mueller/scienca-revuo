@@ -58,7 +58,8 @@
 \ifSR@Author@
   \LoadClass[a4paper,DIV12,12pt]{scrartcl}
 \else
-  \LoadClass[b5paper,10pt,DIV14,openany,twoside,toc=left,headings=small]{scrartcl}
+  \LoadClass[a5paper,10pt,DIV15,openany,twoside,toc=left,headings=small]{scrartcl}
+%  \LoadClass[b5paper,10pt,DIV14,openany,twoside,toc=left,headings=small]{scrartcl}
 \fi
 
 
@@ -156,6 +157,7 @@
 \setdefaultlanguage{esperanto}
 \RequirePackage[backend=biber]{biblatex}
 \newcommand*{\citewithauthor}[1]{\citeauthor{#1}~\cite{#1}}
+\gappto\captionsesperanto{\renewcommand{\figurename}{Bildo}}
 
 \ifSR@Author@\else
   \RequirePackage{graphicx,xspace}
@@ -249,7 +251,7 @@
   \draw[-stealth,black!50!white](0,#1) -- ++ (4,-2.0);%
   \shade[ball color=black](0,#1)  --  ++(3.2,-1.6)%
   node[fill=white,draw=black, above right=0.2cm]%
-  {Electrono} circle(0.1);%
+  {Elektrono} circle(0.1);%
 }
 \newcommand*{\TitlePageArt}{%
   \tiny
@@ -416,6 +418,7 @@
   \let\@title=\@empty%
   \let\@author=\@empty%
   \let\@thanks=\@empty%
+  \global\let\@subtitle=\@empty
 }
 \fi
 \newcommand{\metaartikolo}[2][]{%
@@ -424,12 +427,14 @@
   \setup@title
   \let\@title=\@empty
   \let\@thanks=\@empty
+  \let\@subtitle=\@empty
 }
 \newcommand\SRtitle@sep{\vspace{32pt plus 8pt minus 16pt}}
 \renewcommand\and{, }
 \let\@title=\@empty
 \let\@author=\@empty
 \let\@thanks=\@empty
+\let\@subtitle=\@empty
 \ifSR@Author@\else
 \renewenvironment{abstract}{%
   \par\medskip
@@ -602,6 +607,8 @@
 
 \RequirePackage{terminaro}
 
+\RequirePackage{subfig}
+
 \RequirePackage{cleveref}
 \newcount\SR@label
 \SR@label=0
@@ -651,7 +658,7 @@
   \Crefname@preamble{appendix}{Aldono}{Aldonoj}%
   \Crefname@preamble{enumi}{Punkto}{Punktoj}%
   \Crefname@preamble{footnote}{Piednoto}{Piednotoj}%
-  \Crefname@preamble{figure}{Figuro}{Figuroj}%
+  \Crefname@preamble{figure}{Bildo}{Bildoj}%
   \Crefname@preamble{table}{Tabelo}{Tabeloj}%
   \Crefname@preamble{theorem}{Teoremo}{Teoremoj}%
   \Crefname@preamble{lemma}{Lemo}{Lemoj}%
@@ -673,7 +680,7 @@
   \crefname@preamble{appendix}{Aldono}{Aldonoj}%
   \crefname@preamble{enumi}{Punkto}{Punktoj}%
   \crefname@preamble{footnote}{Piednoto}{Piednotoj}%
-  \crefname@preamble{figure}{Figuro}{Figuroj}%
+  \crefname@preamble{figure}{Bildo}{Bildoj}%
   \crefname@preamble{table}{Tabelo}{Tabeloj}%
   \crefname@preamble{theorem}{Teoremo}{Teoremoj}%
   \crefname@preamble{lemma}{Lemo}{Lemoj}%
@@ -695,7 +702,7 @@
   \crefname@preamble{appendix}{aldono}{aldonoj}%
   \crefname@preamble{enumi}{punkto}{punktoj}%
   \crefname@preamble{footnote}{piednoto}{piednotoj}%
-  \crefname@preamble{figure}{figuro}{figuroj}%
+  \crefname@preamble{figure}{bildo}{bildoj}%
   \crefname@preamble{table}{tabelo}{tabeloj}%
   \crefname@preamble{theorem}{teoremo}{teoremoj}%
   \crefname@preamble{lemma}{lemo}{lemoj}%
@@ -727,7 +734,7 @@
   \Crefname{appendix}{Aldono}{Aldonoj}%
   \Crefname{enumi}{Punkto}{Punktoj}%
   \Crefname{footnote}{Piednoto}{Piednotoj}%
-  \Crefname{figure}{Figuro}{Figuroj}%
+  \Crefname{figure}{Bildo}{Bildoj}%
   \Crefname{table}{Tabelo}{Tabeloj}%
   \Crefname{theorem}{Teoremo}{Teoremoj}%
   \Crefname{lemma}{Lemo}{Lemoj}%
@@ -749,7 +756,7 @@
   \crefname{appendix}{Aldono}{Aldonoj}%
   \crefname{enumi}{Punkto}{Punktoj}%
   \crefname{footnote}{Piednoto}{Piednotoj}%
-  \crefname{figure}{Figuro}{Figuroj}%
+  \crefname{figure}{Bildo}{Bildoj}%
   \crefname{table}{Tabelo}{Tabeloj}%
   \crefname{theorem}{Teoremo}{Teoremoj}%
   \crefname{lemma}{Lemo}{Lemoj}%
@@ -771,7 +778,7 @@
   \crefname{appendix}{aldono}{aldonoj}%
   \crefname{enumi}{punkto}{punktoj}%
   \crefname{footnote}{piednoto}{piednotoj}%
-  \crefname{figure}{figuro}{figuroj}%
+  \crefname{figure}{bildo}{bildoj}%
   \crefname{table}{tabelo}{tabeloj}%
   \crefname{theorem}{teoremo}{teoremoj}%
   \crefname{lemma}{lemo}{lemoj}%
