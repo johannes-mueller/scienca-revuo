@@ -258,7 +258,7 @@
   \draw[-stealth,black!50!white](0,#1) -- ++ (5,2.5);%
   \shade[ball color=black](0,#1)  --  ++(4,2.0)%
   node[fill=white,draw=black, below right=0.2cm]%
-  {Positrono} circle(0.1);%
+  {Pozitrono} circle(0.1);%
   \draw[-stealth,black!50!white](0,#1) -- ++ (4,-2.0);%
   \shade[ball color=black](0,#1)  --  ++(3.2,-1.6)%
   node[fill=white,draw=black, above right=0.2cm]%
