@@ -361,7 +361,9 @@
   \renewcommand{\part}{%
     \typeout{*** Parts can not be used in single articles.}}
 \else
-\renewcommand\part[2][]{%
+\renewcommand\part{\secdef\SR@part\SR@spart}%
+
+\def\SR@part[#1]#2{%
   \def\@@temp{#1}
   \ifx\@@temp\@empty
     \gdef\@@part{#2}
@@ -374,6 +376,15 @@
   \part@format{#2}
   \FirstArticletrue
 }
+\def\SR@spart#1{%
+  \gdef\@@part{#1}
+  \clearpage
+  \phantomsection
+  \pdfbookmark[-1]{#1}{section.\the\Hy@linkcounter}
+  \part@format{#1}
+  \FirstArticletrue
+}
+
 \renewcommand{\othersectionlevelsformat}[3]{%
   \arabic{section}%
   \def\@@temp{#1}%
@@ -441,11 +452,13 @@
   \begingroup
   \setup@title%
   \let\thanks\@gobble%
-  \phantomsection%
-  \addcontentsline{toc}{chapter}{\protect\normalfont\protect\normalsize\@@title}%
-  \ifx\@author\@empty\else%
-    \addtocontents{toc}{\protect\AuthorFont\hspace{2em}\@author\normalfont\endgraf}%
-  \fi%
+  \ifSR@Author@\else
+    \phantomsection%
+    \addcontentsline{toc}{chapter}{\protect\normalfont\protect\normalsize\@@title}%
+    \ifx\@author\@empty\else%
+      \addtocontents{toc}{\protect\AuthorFont\hspace{2em}\@author\normalfont\endgraf}%
+    \fi%
+  \fi
   \endgroup%
   \thispagestyle{plain}
   \global\let\@title=\@empty%
@@ -575,7 +588,11 @@
   \normalsize
   \par
 }
-\setcounter{tocdepth}{0}
+\ifSR@Author@
+  \setcounter{tocdepth}{2}
+\else
+  \setcounter{tocdepth}{0}
+\fi
 
 
 \pdfpagewidth\paperwidth\pdfpageheight\paperheight
