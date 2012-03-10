@@ -8,6 +8,8 @@
 \SR@lineno@false
 \newif\ifuse@SR@fonts@
 \use@SR@fonts@false
+\newif\iffinal@layout@
+\final@layout@false
 \newread\SR@file
 \ProvidesClass{srevuo}
 
@@ -38,7 +40,8 @@
 \DeclareOption{12pt}{\OptionNotUsed}
 \DeclareOption{twoside}{\OptionNotUsed}
 \DeclareOption{oneside}{\OptionNotUsed}
-\DeclareOption{full}{\SR@Author@false\use@SR@fonts@true}
+\DeclareOption{full}{\SR@Author@false\use@SR@fonts@true\final@layout@true}
+\DeclareOption{final}{\use@SR@fonts@true\final@layout@true}
 \DeclareOption{SRfonts}{\use@SR@fonts@true}
 \DeclareOption{draft}{%
   \SR@Draft@true
@@ -56,17 +59,24 @@
   \arabic{linenumber}}}
 \ProcessOptions
 \ifSR@Author@
-  \LoadClass[a4paper,DIV12,12pt]{scrartcl}
+  \iffinal@layout@
+    \LoadClass[a4paper,DIV12,12pt,twoside]{scrartcl}
+  \else
+    \LoadClass[a4paper,DIV12,12pt]{scrartcl}
+  \fi
 \else
   \LoadClass[a5paper,10pt,DIV15,openany,twoside,toc=left,headings=small]{scrartcl}
 %  \LoadClass[b5paper,10pt,DIV14,openany,twoside,toc=left,headings=small]{scrartcl}
+  \RequirePackage{tocstyle}
+%  \usetocstyle{KOMAlike}
+  \settocstylefeature[-1]{entryhook}{\bfseries}
+  \settocstylefeature{pagenumberhook}{\normalfont}
+  \settocstylefeature{entryvskip}{0.5em}
 \fi
 
 
 \newcommand*{\titol@grize}{\color{black!50!white}}
 
-\RequirePackage{url}
-\newcommand{\EMail}[1]{\protect\url{#1}}
 
 \ifSR@lineno@
   \RequirePackage{lineno}\linenumbers
@@ -193,6 +203,7 @@
     every mark/.append style={mark size=8},
     major tick length=0.1cm,
     minor tick length=0.066cm,
+    scale=0.9
   }
 }
 \else
@@ -312,7 +323,7 @@
 \newlength{\part@head@height}
 \setlength{\part@head@height}{31pt}
 \newlength{\mytemp@l}
-\ifSR@Author@\else
+\iffinal@layout@
   \RequirePackage{titlesec}
   \newcommand\part@format[1]{%
     \clearpage
@@ -368,7 +379,7 @@
 
  \let\orig@title=\title
  \renewcommand{\title}[2][]{\orig@title{#2}}
-\ifSR@Author@\else
+\iffinal@layout@
 \renewcommand\title[2][]{%
   \gdef\@title{#2}%
   \def\@@temp{#1}%
@@ -377,10 +388,12 @@
   \ifFirstArticle\else\newpage\fi
   \global\FirstArticlefalse
   \begingroup
+    \let\footnote\thanks
+    \renewcommand*\thefootnote{\@fnsymbol\c@footnote}%
+    \let\@oldmakefnmark\@makefnmark
     \noindent
     \begin{minipage}{\textwidth}
       \SRtitle@sep
-      \setcounter{footnote}0
       \raggedright
       \TitleFont\@title\normalfont
       \ifx\@subtitle\@empty\else
@@ -395,11 +408,16 @@
     \@thanks%
     \let\thanks\@gobble%
   \endgroup
+  \setcounter{footnote}0
   \setcounter{figure}0
   \setcounter{table}0
   \setcounter{equation}0
   \setcounter{section}0
-  \markboth{\@@part}{\@@title}
+  \ifSR@Author@
+    \markboth{\@@rubriko}{\@@title}
+  \else
+    \markboth{\@@part}{\@@title}
+  \fi
   \par\medskip
   \@endpefalse\@ignoretrue 
   \aftergroup\@afterindentfalse 
@@ -410,14 +428,18 @@
   \begingroup
   \setup@title%
   \let\thanks\@gobble%
-  \ifx\@author\@empty\else%
+  \ifx\@author\@empty
+    \addtocontents{toc}{%  
+      \protect\contentsline{part}{\normalfont\normalsize\@@title}{\thepage}}%
+  \else%
     \addtocontents{toc}{%
-      \protect\contentsline{part}{\normalfont\@@title\newline\AuthorFont\@author}{\thepage}}%
+      \protect\contentsline{part}{\normalfont\normalsize\@@title\newline\AuthorFont\@author}{\thepage}}%
   \fi%
   \endgroup%
-  \let\@title=\@empty%
-  \let\@author=\@empty%
-  \let\@thanks=\@empty%
+  \thispagestyle{plain}
+  \global\let\@title=\@empty%
+  \global\let\@author=\@empty%
+  \global\let\@thanks=\@empty%
   \global\let\@subtitle=\@empty
 }
 \fi
@@ -435,13 +457,15 @@
 \let\@author=\@empty
 \let\@thanks=\@empty
 \let\@subtitle=\@empty
-\ifSR@Author@\else
+\iffinal@layout@
 \renewenvironment{abstract}{%
-  \par\medskip
+  \par
+  \rule{\textwidth}{1pt}
   \begin{quote}\small\sffamily
   \noindent\ignorespaces}{%
-  \end{quote}
-  \par\bigskip
+  \end{quote}  
+  \rule[\baselineskip]{\textwidth}{1pt}
+  \par\medskip
   \@endpefalse\@ignoretrue 
   \aftergroup\@afterindentfalse 
   \aftergroup\@afterheading 
@@ -449,9 +473,9 @@
 \fi
 \newcommand*{\keywords}[1]{%
   \begin{quote}\small\sffamily
-    \noindent\textbf{Kapvortoj:} \textit{#1}
+    \noindent\usekomafont{sectioning}{Kapvortoj:} \textit{#1}
   \end{quote}
-  \par\bigskip
+  \par
   \@endpefalse\@ignoretrue 
   \aftergroup\@afterindentfalse 
   \aftergroup\@afterheading 
@@ -474,16 +498,23 @@
 }
 \newcommand*{\fonto}[1]{\par\medskip\noindent\textit{Fonto:} #1}
 
-
-\ifSR@Author@\else
-  \newcommand{\cxi@eldono}{Scienca Revuo x/xxxx}
-  \define@key{titolpagxo}{volumo}{\def\@volumo{#1}}
-  \define@key{titolpagxo}{kajero}{\def\@kajero{#1}}
-  \define@key{titolpagxo}{numero}{\def\@numero{#1}}
-  \define@key{titolpagxo}{jaro}{\def\@jaro{#1}}
+\newcommand{\eldono}[1]{}
+\newcommand{\rubriko}[1]{}
+\newcommand{\cxi@eldono}{Scienca Revuo x/xxxx}
+\define@key{eldono}{volumo}{\def\@volumo{#1}}
+\define@key{eldono}{kajero}{\def\@kajero{#1}}
+\define@key{eldono}{numero}{\def\@numero{#1}}
+\define@key{eldono}{jaro}{\def\@jaro{#1}}
+\ifSR@Author@
+  \renewcommand{\eldono}[1]{%
+    \setkeys{eldono}{#1}
+    \renewcommand{\cxi@eldono}{Scienca Revuo \@kajero /\@jaro}
+  }
+  \renewcommand{\rubriko}[1]{\global\def\@@rubriko{#1}}
+\else
   \newcommand\SciencaRevuoTitolo[1]{%
     \thispagestyle{empty}
-    \setkeys{titolpagxo}{#1}
+    \setkeys{eldono}{#1}
     \begingroup
     \hfill\bgroup\fontsize{54}{54}\selectfont\titol@grize\sffamily\ISAE\egroup
     \par\vspace{\baselineskip}
@@ -590,8 +621,19 @@
 
 \ifSR@Author@\else
 \input{extended_preamble}
+\fi
+
+\iffinal@layout@
 \defbibheading{bibliography}[\bibname]{\section*{#1}}
 \fi
+
+\RequirePackage{url}
+\newcommand{\EMail}[1]{\protect\url{#1}}
+\iffinal@layout@
+%  \RequirePackage{hyperref}
+%  \renewcommand{\EMail}[1]{\href{mailto:#1}{\protect\url{#1}}}
+\fi
+
 
 \AtBeginDocument{%
   %%%\edef\SR@jobname{\jobname}%
