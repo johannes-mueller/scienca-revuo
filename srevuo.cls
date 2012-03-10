@@ -65,13 +65,15 @@
     \LoadClass[a4paper,DIV12,12pt]{scrartcl}
   \fi
 \else
-  \LoadClass[a5paper,10pt,DIV15,openany,twoside,toc=left,headings=small]{scrartcl}
-%  \LoadClass[b5paper,10pt,DIV14,openany,twoside,toc=left,headings=small]{scrartcl}
+  \LoadClass[a5paper,10pt,DIV15,openany,twoside,toc=left,headings=small]{scrbook}
+%  \LoadClass[b5paper,10pt,DIV14,openany,twoside,toc=left,headings=small]{scrbook}
+  \newenvironment{abstract}{}{}
   \RequirePackage{tocstyle}
-%  \usetocstyle{KOMAlike}
-  \settocstylefeature[-1]{entryhook}{\bfseries}
+  \usetocstyle{KOMAlike}
+  \settocstylefeature[-1]{entryhook}{\bfseries\sffamily}
   \settocstylefeature{pagenumberhook}{\normalfont}
-  \settocstylefeature{entryvskip}{0.5em}
+  \settocstylefeature[-1]{entryvskip}{1em}
+  \settocstylefeature[0]{entryvskip}{0.5em}
 \fi
 
 
@@ -92,7 +94,7 @@
 \fi
 %%%%%%%%%%
 
-\newcommand\AuthorFont{\normalsize\scshape}
+\newcommand\AuthorFont{\normalfont\normalsize\scshape}
 \newcommand\SubtitleFont{\large\sffamily}
 \newcommand\TitleFont{\usekomafont{sectioning}\Large}
 
@@ -326,7 +328,6 @@
 \iffinal@layout@
   \RequirePackage{titlesec}
   \newcommand\part@format[1]{%
-    \clearpage
     \suppressfloats[t]
     \thispagestyle{plain}
     \begingroup
@@ -338,10 +339,6 @@
     \endgroup
     \par
   }
-  \titleformat{\part}{\normalfont}{}{0pt}{\part@format}
-  \titleformat{name=\part,numberless=true}[display]{}{}{0pt}{\part@fomat}{}
-  \titlespacing*{\part}{0pt}{0pt}{0pt}
-  %
   \RequirePackage[manualmark]{scrpage2}
   \setkomafont{pagehead}{\sffamily\itshape}
   \setkomafont{pagefoot}{\sffamily\itshape}
@@ -365,15 +362,30 @@
     \typeout{*** Parts can not be used in single articles.}}
 \else
 \renewcommand\part[2][]{%
-  \part@format{#2}
   \def\@@temp{#1}
   \ifx\@@temp\@empty
     \gdef\@@part{#2}
   \else
     \gdef\@@part{#1}
   \fi
+  \clearpage
+  \phantomsection
   \addcontentsline{toc}{part}{\@@part}
+  \part@format{#2}
   \FirstArticletrue
+}
+\renewcommand{\othersectionlevelsformat}[3]{%
+  \arabic{section}%
+  \def\@@temp{#1}%
+  \ifdefstring{\@@temp}{subsection}{%
+    .\arabic{subsection}%
+  }{%
+    \ifdefstring{\@@temp}{subsubsection}{%
+      .\arabic{subsection}.\arabic{subsubsection}%
+    }{%
+    }%
+  }%
+  \enskip%
 }
 \fi
 
@@ -428,12 +440,12 @@
   \begingroup
   \setup@title%
   \let\thanks\@gobble%
+  \phantomsection
   \ifx\@author\@empty
-    \addtocontents{toc}{%  
-      \protect\contentsline{part}{\normalfont\normalsize\@@title}{\thepage}}%
+     \addcontentsline{toc}{chapter}{\protect\normalfont\protect\normalsize\@@title}
   \else%
-    \addtocontents{toc}{%
-      \protect\contentsline{part}{\normalfont\normalsize\@@title\newline\AuthorFont\@author}{\thepage}}%
+     \addcontentsline{toc}{chapter}{\protect\normalfont\protect\normalsize\@@title}
+     \addtocontents{toc}{\protect\AuthorFont\hspace{2em}\@author\normalfont\endgraf}
   \fi%
   \endgroup%
   \thispagestyle{plain}
@@ -545,16 +557,18 @@
 \else
   \renewcommand\tableofcontents{%
     \clearpage
+    \hypertarget{toc}{}
+    \pdfbookmark[-1]{\contentsname}{toc}
     \thispagestyle{empty}%
     \markboth{\contentsname}{\contentsname}%
     \ContentsArt
+    \vspace{2em}
     \@starttoc{toc}
   }
 \fi
 \newcommand\ContentsArt{%
   \raggedright
   \part@format{\contentsname}
-  %\vspace{-\baselineskip}
   \hfill \footnotesize\sffamily
   \volumo@indiko\@volumo\xspace$\cdot$
   \numero@indiko\@numero\xspace$\cdot$
@@ -630,8 +644,14 @@
 \RequirePackage{url}
 \newcommand{\EMail}[1]{\protect\url{#1}}
 \iffinal@layout@
-%  \RequirePackage{hyperref}
-%  \renewcommand{\EMail}[1]{\href{mailto:#1}{\protect\url{#1}}}
+  \RequirePackage[bookmarksopen=true,linktocpage]{hyperref}
+  \hypersetup{%
+    colorlinks,
+    citecolor={{green!50!black}},
+    linkcolor={{blue!80!black}},
+    pdfpagelayout=TwoPageRight
+  }
+  \renewcommand{\EMail}[1]{\href{mailto:#1}{\protect\url{#1}}}
 \fi
 
 
