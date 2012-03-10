@@ -437,15 +437,14 @@
 }
 \renewcommand{\maketitle}{%
   \Advance@Label@Prefix
+  \setcounter{footnote}{0}
   \begingroup
   \setup@title%
   \let\thanks\@gobble%
-  \phantomsection
-  \ifx\@author\@empty
-     \addcontentsline{toc}{chapter}{\protect\normalfont\protect\normalsize\@@title}
-  \else%
-     \addcontentsline{toc}{chapter}{\protect\normalfont\protect\normalsize\@@title}
-     \addtocontents{toc}{\protect\AuthorFont\hspace{2em}\@author\normalfont\endgraf}
+  \phantomsection%
+  \addcontentsline{toc}{chapter}{\protect\normalfont\protect\normalsize\@@title}%
+  \ifx\@author\@empty\else%
+    \addtocontents{toc}{\protect\AuthorFont\hspace{2em}\@author\normalfont\endgraf}%
   \fi%
   \endgroup%
   \thispagestyle{plain}
