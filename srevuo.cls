@@ -312,6 +312,8 @@
 
 \DeclareRobustCommand{\NeEnRevuo}[1]{\ifSR@Author@#1\fi}
 
+\DeclareRobustCommand{\pleneldono}[2]{\ifSR@Author@#2\else#1\fi}
+
 
 \RequirePackage{picins}
 \newcommand\autoro[1][]{%
