@@ -13,6 +13,7 @@
 
 \RequirePackage{xkeyval}
 \RequirePackage{supertabular}
+\RequirePackage{xspace}
 
 \let\@start@term=0
 \let\@end@term=0
@@ -37,7 +38,7 @@
   \if@terminojopen\else\@openterminoj\fi
   \immediate\write\@terminoj{\@start@term\@@temp|#3,\@end@term}%
 }
-\renewcommand{\termino}[3]{#1}
+\renewcommand{\termino}[3][]{#2\xspace}
 
 \newcount\trm@ling@num
 
