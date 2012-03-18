@@ -65,7 +65,8 @@
     \LoadClass[a4paper,DIV12,12pt]{scrartcl}
   \fi
 \else
-  \LoadClass[a5paper,10pt,DIV15,openany,twoside,toc=left,headings=small]{scrbook}
+%  \LoadClass[a5paper,9pt,DIV15,openany,twoside,toc=left,headings=small]{scrbook}
+  \LoadClass[a4paper,12pt,DIV12,openany,twoside,toc=left,headings=small]{scrbook}
 %  \LoadClass[b5paper,10pt,DIV14,openany,twoside,toc=left,headings=small]{scrbook}
   \newenvironment{abstract}{}{}
   \RequirePackage{tocstyle}
@@ -400,8 +401,13 @@
 }
 \fi
 
- \let\orig@title=\title
- \renewcommand{\title}[2][]{\orig@title{#2}}
+\newcommand{\komencapagxo}[1]{}
+\ifSR@Author@\iffinal@layout@
+  \renewcommand{\komencapagxo}[1]{\setcounter{page}{#1}}
+\fi\fi
+
+\let\orig@title=\title
+\renewcommand{\title}[2][]{\orig@title{#2}}
 \iffinal@layout@
 \renewcommand\title[2][]{%
   \gdef\@title{#2}%
