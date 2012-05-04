@@ -296,8 +296,10 @@
 \newcommand*{\numero@indiko}{Numero\xspace}
 \newcommand*{\kajero@indiko}{Kajero\xspace}
 \newcommand*{\jaro@indiko}{Jaro\xspace}
+\newcommand*{\issn}{ISSN 0048-9557}
 
-\newcommand*{\person}[1]{\textsc{#1}}
+%\newcommand*{\person}[1]{\textsc{#1}}
+\newcommand*{\person}[1]{#1}
 \newcommand*{\alilingve}[2]{\textit{#2}}
 
 \newcommand{\RedakciaNoto}[2][]{
@@ -589,7 +591,9 @@
 \newcommand\ContentsArt{%
   \raggedright
   \part@format{\contentsname}
-  \hfill \footnotesize\sffamily
+  \footnotesize\sffamily
+  \issn
+  \hfill 
   \volumo@indiko\@volumo\xspace$\cdot$
   \numero@indiko\@numero\xspace$\cdot$
   \kajero@indiko\@kajero /\@jaro
