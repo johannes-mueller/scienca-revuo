@@ -694,8 +694,16 @@
   }{}
 }
 
+%\RequirePackage{booktabs}
+%\RequirePackage{array}
+%\RequirePackage{terminaro}
 
-\RequirePackage{terminaro}
+\RequirePackage{array}
+\RequirePackage[table]{xcolor}
+\RequirePackage{calc}
+\RequirePackage{booktabs}
+\rowcolors{2}{white}{black!10!white}
+\setlength{\extrarowheight}{4pt}
 
 \RequirePackage{subfig}
 
