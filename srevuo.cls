@@ -83,7 +83,7 @@
 
 \ifSR@lineno@
   \RequirePackage{lineno}\linenumbers
-  \RequirePackage[table]{xcolor}%
+  \RequirePackage{xcolor}%
   \linenumbersep=.8ex
   \def\linenumberfont{\normalfont\scriptsize\sffamily\bfseries}%
   \definecolor{SR@lineno@color}{cmyk}{0.26,0,0.76,0}% SpringGreen
@@ -700,10 +700,11 @@
 %\RequirePackage{terminaro}
 
 \RequirePackage{array}
-\RequirePackage[table]{xcolor}
+\RequirePackage{xcolor}
 \RequirePackage{calc}
 \RequirePackage{booktabs}
-\rowcolors{2}{white}{black!10!white}
+\RequirePackage{tabu}
+\taburowcolors[2]{white..black!10!white}
 \setlength{\extrarowheight}{4pt}
 
 \RequirePackage{subfig}
