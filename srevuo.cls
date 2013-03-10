@@ -452,6 +452,7 @@
     \markboth{\@@part}{\@@title}
   \fi
   \par\medskip
+  \suppressfloats[t]
   \@endpefalse\@ignoretrue 
   \aftergroup\@afterindentfalse 
   \aftergroup\@afterheading 
