@@ -57,6 +57,12 @@ define run-latex-if-necessary
 	fi 
 endef
 
+$(MAIN).pdf: $(CLASSFILE) $(MAIN).aux $(MAIN).bbl $(MAIN).tex
+	@echo "making final"
+	@$(run-latex-if-necessary)
+	@$(check-rerun)
+	@$(run-latex-if-necessary)
+
 %.pdf: $(CLASSFILE) %.aux %.bbl %.tex
 	@echo "making final"
 	@$(run-latex-if-necessary)
