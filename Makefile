@@ -3,7 +3,7 @@ MAIN = numero
 
 CLASSFILE = srevuo.cls
 
-STYS = terminaro.sty
+#STYS = terminaro.sty
 
 .SUFFIXES: .tex .pdf .aux .toc
 
@@ -57,17 +57,12 @@ define run-latex-if-necessary
 	fi 
 endef
 
-$(MAIN).pdf: $(CLASSFILE) $(ARTICLES)  $(EXTENDED_PREAMBLE) %.aux %.bbl
-	@echo "making final"
-	@$(run-latex-if-necessary)
-	@$(check-rerun)
-	@$(run-latex-if-necessary)
-
 %.pdf: $(CLASSFILE) %.aux %.bbl %.tex
 	@echo "making final"
 	@$(run-latex-if-necessary)
 	@$(check-rerun)
 	@$(run-latex-if-necessary)
+
 
 %.bbl: $(BIBS)
 ifdef BIBS
