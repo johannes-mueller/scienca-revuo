@@ -300,7 +300,7 @@
 
 %\newcommand*{\person}[1]{\textsc{#1}}
 \newcommand*{\person}[1]{#1}
-\newcommand*{\alilingve}[2]{\textit{#2}}
+\newcommand*{\alilingve}[2]{\textsf{#2}}
 
 \newcommand{\RedakciaNoto}[2][]{
   \def\@@temp{#1}
