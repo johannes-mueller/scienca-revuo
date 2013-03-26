@@ -543,7 +543,8 @@
 \ifSR@Author@
   \renewcommand{\eldono}[1]{%
     \setkeys{eldono}{#1}
-    \renewcommand{\cxi@eldono}{Scienca Revuo \@kajero /\@jaro}
+    \renewcommand{\cxi@eldono}{%
+      Scienca Revuo \@kajero /\@volumo\hspace{1em} (\@jaro)}
   }
   \renewcommand{\rubriko}[1]{\global\def\@@rubriko{#1}}
 \else
@@ -568,11 +569,17 @@
     \hfill\TitlePageArt
     \vfill
     \normalfont
-    \hfill\sffamily\fontsize{54}{54}\selectfont\titol@grize\@kajero /\@jaro
+    \hfill\sffamily\titol@grize
+    \fontsize{40}{40}\selectfont
+    \usekomafont{sectioning}
+    \@kajero /\@volumo\hspace{1em}
+    \normalfont\sffamily\titol@grize
+    \fontsize{56}{56}\selectfont(\@jaro)
     \normalfont\normalsize
     \newpage
     \endgroup
-    \renewcommand{\cxi@eldono}{Scienca Revuo \@kajero /\@jaro}
+    \renewcommand{\cxi@eldono}{%
+      Scienca Revuo\hspace{1em}\@kajero /\@volumo\hspace{1em}(\@jaro)}
   }
 \fi
 
