@@ -289,7 +289,7 @@
 \newcommand*{\RevuTitolo}{Scienca Revuo\xspace}
 \newcommand*{\srevuo}{Scienca Revuo\xspace}
 \newcommand*{\srevuon}{Sciencan Revuon\xspace}
-\newcommand*{\isaelonge}{Internacia Scienca Asocio Esperantista\xspace}
+\newcommand*{\isaelonge}{Internacia Scienca Asocio Esperanta\xspace}
 \newcommand*{\doi}{DOI\xspace}
 
 \newcommand*{\volumo@indiko}{Volumo\xspace}
@@ -551,12 +551,14 @@
     \thispagestyle{empty}
     \setkeys{eldono}{#1}
     \begingroup
-    \hfill\bgroup\fontsize{54}{54}\selectfont\titol@grize\sffamily\ISAE\egroup
+    \hfill
+    %\bgroup\fontsize{54}{54}\selectfont\titol@grize\sffamily\ISAE\egroup
+    \includegraphics[height=72pt]{emblemo_papera}
     \par\vspace{\baselineskip}
     \hfill\textsf{\small\isaelonge}
     \par
     \hfill\rule{0.66\textwidth}{0.4pt}
-    \par\vspace{0.2\textheight}
+    \par\vspace{90pt}
     \hfill\usekomafont{sectioning}{\Huge\RevuTitolo}
     \par\normalsize\vspace{\baselineskip}
     \hfill\volumo@indiko\@volumo\hspace{2em}\kajero@indiko\@kajero\hspace{2em}
