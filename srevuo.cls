@@ -526,6 +526,7 @@
   \par\vspace{2em}
   \noindent #1
   \normalfont\normalsize
+  \nopagebreak
   \par\vspace{1em}
   \@endpefalse\@ignoretrue 
   \@afterindentfalse 
