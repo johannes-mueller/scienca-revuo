@@ -717,7 +717,8 @@
 \taburowcolors[2]{white..black!10!white}
 \setlength{\extrarowheight}{4pt}
 
-\RequirePackage{subfig}
+
+\PassOptionsToPackage{caption=false}{subfig}
 
 \RequirePackage{cleveref}
 \newcount\SR@label
