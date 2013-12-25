@@ -3,32 +3,28 @@ MAIN = numero
 
 CLASSFILE = srevuo.cls
 
-#STYS = terminaro.sty
-
-.SUFFIXES: .tex .pdf .aux .toc
+.SUFFIXES: .tex .pdf .aux .toc .bbl .bib
 
 LATEX = xelatex -interaction=nonstopmode --shell-escape --enable-write18
 BIBER = biber -q
 
-define run-latex-itself
+MAINPDF=$(addsuffix .pdf, $(MAIN))
+
+define run-latex
 	$(LATEX) $(basename $@) \
 	| perl -ne 'BEGIN{$$s=0;} $$s=1 if /^!/; print $$_ if $$s; exit(1) if /^l\./'
 endef
 
-define run-latex
-	$(run-latex-itself)
-	$(check-rerun)
-endef
-
 EXTENDED_PREAMBLE = extended_preamble.tex
 
-all: $(MAIN).pdf
+all: articles_and_numero 
 
 $(EXTENDED_PREAMBLE): $(ARTICLES)
 	@echo "making extended preamble"
 	@echo %%% This is an automatically generated file\; dont change it ... > $(EXTENDED_PREAMBLE)
 	@grep -h \\\\usepackage $(ARTICLES) >> $(EXTENDED_PREAMBLE) || true
 	@grep -h \\\\bibliography $(ARTICLES) >> $(EXTENDED_PREAMBLE) || true
+	@grep -h \\\\usetikzlibrary $(ARTICLES) >> $(EXTENDED_PREAMBLE) || true
 
 define getarts
 	arts=`perl -ne '($$_)=/^[^%]*\\\(?:SRinput)\{(.*?)\}/;@_=split /,/;foreach $$t (@_) {print "$$t.tex "}' $<`
@@ -40,48 +36,56 @@ endef
 
 %.dep: %.tex 
 	@echo "making dependencies"
-	@touch $(basename $@).rerun
 	@$(getarts); $(getbibs); \
 	echo "ARTICLES = $$arts" >> $@ ; \
 	echo "BIBS = $$bibs" >> $@
 
 include $(MAIN).dep
 
-define run-latex-if-necessary
-	if [ -f $(basename $@).rerun ]; then \
-		echo "running latex (again) ..." ; \
-		rm $(basename $@).rerun ;\
-		$(run-latex-itself) ;\
-	else \
-	 	echo "Nichts mehr zu tun." ; \
-	fi 
-endef
-
-$(MAIN).pdf: $(CLASSFILE) $(MAIN).aux $(MAIN).bbl $(MAIN).tex
-	@echo "making final"
-	@$(run-latex-if-necessary)
-	@$(check-rerun)
-	@$(run-latex-if-necessary)
-
-%.pdf: $(CLASSFILE) %.aux %.bbl %.tex
-	@echo "making final"
-	@$(run-latex-if-necessary)
-	@$(check-rerun)
-	@$(run-latex-if-necessary)
+BIBSBBL = $(addsuffix .bbl, $(basename $(BIBS)))
+ARTICLESPDF = $(addsuffix .pdf, $(basename $(ARTICLES)))
 
 
-%.bbl: $(BIBS)
+articles_and_numero: $(ARTICLESPDF) $(MAINPDF)
+
+numero: $(MAINPDF)
+
+articles: $(ARTICLESPDF) 
+
+%.pdf: %.aux %.tex $(CLASSFILE) %.bib %.bbl
+	@echo "making final $(@)"
+	@$(run-latex)
+
+%.pdf: %.aux %.tex $(CLASSFILE) %.bbl
+	@echo "making final $(@)"
+	@$(run-latex)
+
+%.pdf: %.aux %.tex $(CLASSFILE)
+	@echo "making final $(@)"
+	@$(run-latex)
+
+
+$(MAIN).bbl: $(BIBS)
 ifdef BIBS
-	@echo "making bibliography"
+	@echo "making bibliography $(@)"
 	@$(BIBER) $(basename $@)
-	@touch .$(basename $@).rerun
 else
 	@touch $@
 endif
 
+.SECONDARY:
 
-%.aux : %.tex $(CLASSFILE) $(STYS) $(ARTICLES) $(EXTENDED_PREAMBLE)
-	@echo "making aux"
+%.bbl: %.tex %.bib
+	@echo "making $(@)"
+	@$(BIBER) $(basename $@)
+
+$(MAIN).aux: $(CLASSFILE) $(MAIN).tex $(ARTICLES) $(EXTENDED_PREAMBLE)
+	@echo "making $(@)"
+	@$(run-latex)
+	@grep Biber $(basename $@).log && $(RM) $(basename $@).bbl || true
+
+%.aux : %.tex $(CLASSFILE) $(STYS) 
+	@echo "making $(@)"
 	@$(run-latex)
 	@grep Biber $(basename $@).log && $(RM) $(basename $@).bbl || true
 
@@ -92,7 +96,7 @@ endif
 
 .DELETE_ON_ERROR:
 
-.NOTPARAlLEL:
+.NOTPARALLEL:
 
 .PHONY: clean totalclean targetclean
 
@@ -103,4 +107,4 @@ totalclean: clean
 	$(RM) *~
 
 targetclean: clean
-	$(RM) $(MAIN).pdf
+	$(RM) $(ARTICLESPDF) $(MAINPDF)

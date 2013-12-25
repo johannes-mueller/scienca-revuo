@@ -8,7 +8,7 @@
     \textendash\penalty\hyphenpenalty}% breakable dash
   \protected\def\bibdatedash{\bibrangedash}%
   \let\finalandcomma=\empty
-  \protected\def\mkbibordinal#1{\stripzeros{#1}\adddot}%
+  \protected\def\mkbibordinal#1{\stripzeros{#1}-a}%
   \protected\def\mkbibmascord{\mkbibordinal}%
   \protected\def\mkbibfemord{\mkbibordinal}%
   \protected\def\mkbibdatelong#1#2#3{%
@@ -22,17 +22,13 @@
        \iffieldundef{#1}{}{\space}}%
     \stripzeros{\thefield{#1}}}%
   \protected\def\mkbibdateshort#1#2#3{%
-    \iffieldundef{#3}
-      {}
-      {\mkdatezeros{\thefield{#3}}\adddot
-       \iffieldundef{#2}{}{\thinspace}}%
-    \iffieldundef{#2}
-      {}
-      {\mkdatezeros{\thefield{#2}}%
-       \iffieldundef{#1}
-	 {}
-	 {\iffieldundef{#3}{/}{\adddot\thinspace}}}%
-    \mkdatezeros{\thefield{#1}}}%
+    \iffieldundef{#1}{}{%
+      \thefield{#1}%
+      \iffieldundef{#2}{}{%
+        -\thefield{#2}%
+        \iffieldundef{#3}{}{%
+          -\thefield{#3}}%
+      }}}
   \savecommand\lbx@lfromlang
   \savecommand\lbx@sfromlang
   \def\lbx@lfromlang{%
@@ -338,7 +334,7 @@
   audiocd          = {{KR}{KD}},
   version          = {{Versio}{vs-o}},
   url              = {{adreso}{adreso}},
-  urlseen          = {{vizitita la}{vizitita la}},
+  urlseen          = {{vizitita}{vizitita}},
   inpress          = {{presota}{presota}},
   inpreparation    = {{pretigata}{pretigata}},
   submitted        = {{ensendita}{ensendita}},
@@ -365,32 +361,32 @@
   seealso          = {{vd\adddodtspace ankaŭ}{s.\,auch}},
   backrefpage      = {{vd\adddodtspace paĝo}{vd\adddodtspace p\adddot}},
   backrefpages     = {{vd\adddodtspace paĝoj}{vd\adddodtspace p\adddot}},
-  january          = {{Januar}{Jan\adddot}},
-  february         = {{Februar}{Feb\adddot}},
-  march            = {{M\"arz}{M\"arz}},
-  april            = {{April}{Apr\adddot}},
-  may              = {{Mai}{Mai}},
-  june             = {{Juni}{Juni}},
-  july             = {{Juli}{Juli}},
-  august           = {{August}{Aug\adddot}},
-  september        = {{September}{Sep\adddot}},
-  october          = {{Oktober}{Okt\adddot}},
-  november         = {{November}{Nov\adddot}},
-  december         = {{Dezember}{Dez\adddot}},
-  langamerican     = {{Amerikanisch}{Amerikanisch}},
-  langbrazilian    = {{Brasilianisch}{Brasilianisch}},
-  langdanish       = {{D\"anisch}{D\"anisch}},
-  langdutch        = {{Niederl\"andisch}{Niederl\"andisch}},
-  langenglish      = {{Englisch}{Englisch}},
-  langfrench       = {{Franz\"osisch}{Franz\"osisch}},
-  langgerman       = {{Deutsch}{Deutsch}},
-  langgreek        = {{Griechisch}{Griechisch}},
-  langitalian      = {{Italienisch}{Italienisch}},
-  langlatin        = {{Lateinisch}{Lateinisch}},
-  langnorwegian    = {{Norwegisch}{Norwegisch}},
-  langportuguese   = {{Portugiesisch}{Portugiesisch}},
-  langspanish      = {{Spanisch}{Spanisch}},
-  langswedish      = {{Schwedisch}{Schwedisch}},
+  january          = {{januaro}{jan\adddot}},
+  february         = {{februaro}{feb\adddot}},
+  march            = {{marto}{Mar\adddot}},
+  april            = {{aprilo}{apr\adddot}},
+  may              = {{majo}{majo}},
+  june             = {{julio}{jun\addot}},
+  july             = {{julio}{jul\adddot}},
+  august           = {{aŭgusto}{aŭg\adddot}},
+  september        = {{septembro}{sep\adddot}},
+  october          = {{oktobro}{okt\adddot}},
+  november         = {{novembro}{nov\adddot}},
+  december         = {{decembro}{dec\adddot}},
+  langamerican     = {{usona}{usona}},
+  langbrazilian    = {{brazila}{brazilo}},
+  langdanish       = {{dana}{dana}},
+  langdutch        = {{nederlanda}{nederlanda}},
+  langenglish      = {{angla}{angla}},
+  langfrench       = {{franca}{franca}},
+  langgerman       = {{germana}{germana}},
+  langgreek        = {{greka}{graka}},
+  langitalian      = {{itala}{itala}},
+  langlatin        = {{latina}{latina}},
+  langnorwegian    = {{norvega}{norvega}},
+  langportuguese   = {{portugala}{portugala}},
+  langspanish      = {{hispana}{hispana}},
+  langswedish      = {{sveda}{sveda}},
   fromamerican     = {{aus dem Amerikanischen}{aus dem Amerikanischen}},
   frombrazilian    = {{aus dem Brasilianischen}{aus dem Brasilianischen}},
   fromdanish       = {{aus dem D\"anischen}{aus dem D\"anischen}},

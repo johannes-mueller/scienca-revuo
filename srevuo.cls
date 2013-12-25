@@ -21,6 +21,7 @@
 %   \RequirePackage[html,charset=utf-8]{tex4ht}
 % \fi
 \RequirePackage{etoolbox}
+\RequirePackage{xparse}
 \RequirePackage{ifxetex}
 %\RequirePackage{ifluatex}
 \ifxetex\else
@@ -69,6 +70,7 @@
   \LoadClass[a4paper,12pt,DIV12,openany,twoside,toc=left,headings=small]{scrbook}
 %  \LoadClass[b5paper,10pt,DIV14,openany,twoside,toc=left,headings=small]{scrbook}
   \newenvironment{abstract}{}{}
+  \@definecounter{section}
   \RequirePackage{tocstyle}
   \usetocstyle{KOMAlike}
   \settocstylefeature[-1]{entryhook}{\bfseries\sffamily}
@@ -211,24 +213,24 @@
   }
 }
 \else
-\pgfplotsset{
-  every axis/.style={
-    width=12.7cm,
-    height=9cm,
-    legend style={font=},
-    tick label style={font=},
-    label style={font=\large},
-    title style={font=\large},
-    every axis title shift=0pt,
-    max space between ticks=30,
-    every mark/.append style={mark size=8},
-    major tick length=0.1cm,
-    minor tick length=0.066cm,
-    scale=1.41
-  },
-  label shift={3em},
-}
-\tikzstyle{every picture}+=[scale=0.707]
+% \pgfplotsset{
+%   every axis/.style={
+%     width=12.7cm,
+%     height=9cm,
+%     legend style={font=},
+%     tick label style={font=},
+%     label style={font=\large},
+%     title style={font=\large},
+%     every axis title shift=0pt,
+%     max space between ticks=30,
+%     every mark/.append style={mark size=8},
+%     major tick length=0.1cm,
+%     minor tick length=0.066cm,
+%     scale=1.41
+%   },
+%   label shift={3em},
+% }
+% \tikzstyle{every picture}+=[scale=0.707]
 \fi
 
 \newcommand{\proton}[1]{%
@@ -419,7 +421,7 @@
   \def\@@temp{#1}%
   \ifx\@@temp\@empty\gdef\@@title{#2}\else\gdef\@@title{#1}\fi}
 \newcommand\setup@title{%
-  \ifFirstArticle\else\newpage\fi
+  \ifFirstArticle\else\clearpage\fi
   \global\FirstArticlefalse
   \begingroup
     \let\footnote\thanks
@@ -656,7 +658,7 @@
     \renewcommand*\documentclass[2][]{%
       \SR@embedded@documentclasshook
       \SR@eat@version}%
-    \renewcommand*\usepackage[2][]{}
+    \RenewDocumentCommand\usepackage{ o m o }{}
     \let\pagestyle\@gobble
     \let\thispagestyle\@gobble
     \let\listfiles\relax
