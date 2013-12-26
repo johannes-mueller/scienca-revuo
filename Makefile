@@ -12,7 +12,15 @@ MAINPDF=$(addsuffix .pdf, $(MAIN))
 
 define run-latex
 	$(LATEX) $(basename $@) \
-	| perl -ne 'BEGIN{$$s=0;} $$s=1 if /^!/; print $$_ if $$s; exit(1) if /^l\./'
+	| perl -ne 'BEGIN{$$s=0;} $$s=1 if /^!/; print $$_ if $$s; exit(1) if /^l\./' 
+endef
+
+define run-latex-final
+	@echo "rerun latex final"
+	if { [ -s $(basename $@).rerun ] || [ ! -f $@ ] ; } ; \
+	then \
+		$(run-latex) ; \
+	fi
 endef
 
 EXTENDED_PREAMBLE = extended_preamble.tex
@@ -52,18 +60,20 @@ numero: $(MAINPDF)
 
 articles: $(ARTICLESPDF) 
 
-%.pdf: %.aux %.tex $(CLASSFILE) %.bib %.bbl
+%.pdf: %.rerun %.tex $(CLASSFILE) %.bib %.bbl
 	@echo "making final $(@)"
-	@$(run-latex)
+	@$(run-latex-final)
 
-%.pdf: %.aux %.tex $(CLASSFILE) %.bbl
+%.pdf: %.rerun %.tex $(CLASSFILE) %.bbl
 	@echo "making final $(@)"
-	@$(run-latex)
+	@$(run-latex-final)
 
-%.pdf: %.aux %.tex $(CLASSFILE)
+%.pdf: %.rerun %.tex $(CLASSFILE)
 	@echo "making final $(@)"
-	@$(run-latex)
+	@$(run-latex-final)
 
+%.rerun: %.aux
+	grep  "Warning: .*run" $(basename $<).log > $@ || true
 
 $(MAIN).bbl: $(BIBS)
 ifdef BIBS
@@ -101,7 +111,7 @@ $(MAIN).aux: $(CLASSFILE) $(MAIN).tex $(ARTICLES) $(EXTENDED_PREAMBLE)
 .PHONY: clean totalclean targetclean
 
 clean:
-	$(RM) *.aux *.blg *.bbl *.bcf *.toc *.log *.run.xml *-blx.bib *.dep *.trm $(EXTENDED_PREAMBLE)
+	$(RM) *.aux *.blg *.bbl *.bcf *.toc *.log *.run.xml *-blx.bib *.dep *.trm *.rerun $(EXTENDED_PREAMBLE)
 
 totalclean: clean
 	$(RM) *~
