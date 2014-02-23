@@ -145,6 +145,7 @@
 \else
   \RequirePackage{textcomp}
   \RequirePackage{gensymb}
+  \RequirePackage{amsfonts}
 \fi
 % \ifxetex
 %   \ifboolexpr{bool {SR@Author@} or bool {@tex@ht@}}{%
