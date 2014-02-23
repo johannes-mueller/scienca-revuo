@@ -778,7 +778,7 @@
   \Crefname@preamble{lemma}{Lemo}{Lemoj}%
   \Crefname@preamble{corollary}{Korolario}{Korolarioj}%
   \Crefname@preamble{proposition}{Propozicio}{Propozicioj}%
-  \Crefname@preamble{definition}{Defino}{Definoj}%
+  \Crefname@preamble{definition}{Difino}{Difinoj}%
   \Crefname@preamble{result}{Rezulto}{Rezultoj}%
   \Crefname@preamble{example}{Ekzemplo}{Ekzemploj}%
   \Crefname@preamble{remark}{Rimarko}{Rimarkoj}%
@@ -800,7 +800,7 @@
   \crefname@preamble{lemma}{Lemo}{Lemoj}%
   \crefname@preamble{corollary}{Korolario}{Korolarioj}%
   \crefname@preamble{proposition}{Propozicio}{Propozicioj}%
-  \crefname@preamble{definition}{Defino}{Definoj}%
+  \crefname@preamble{definition}{Difino}{Difinoj}%
   \crefname@preamble{result}{Rezulto}{Rezultoj}%
   \crefname@preamble{example}{Ekzemplo}{Ekzemploj}%
   \crefname@preamble{remark}{Rimarko}{Rimarkoj}%
@@ -822,7 +822,7 @@
   \crefname@preamble{lemma}{lemo}{lemoj}%
   \crefname@preamble{corollary}{korolario}{korolarioj}%
   \crefname@preamble{proposition}{propozicio}{propozicioj}%
-  \crefname@preamble{definition}{defino}{definoj}%
+  \crefname@preamble{definition}{difino}{difinoj}%
   \crefname@preamble{result}{rezulto}{rezultoj}%
   \crefname@preamble{example}{ekzemplo}{ekzemploj}%
   \crefname@preamble{remark}{rimarko}{rimarkoj}%
@@ -854,7 +854,7 @@
   \Crefname{lemma}{Lemo}{Lemoj}%
   \Crefname{corollary}{Korolario}{Korolarioj}%
   \Crefname{proposition}{Propozicio}{Propozicioj}%
-  \Crefname{definition}{Defino}{Definoj}%
+  \Crefname{definition}{Difino}{Difinoj}%
   \Crefname{result}{Rezulto}{Rezultoj}%
   \Crefname{example}{Ekzemplo}{Ekzemploj}%
   \Crefname{remark}{Rimarko}{Rimarkoj}%
@@ -876,7 +876,7 @@
   \crefname{lemma}{Lemo}{Lemoj}%
   \crefname{corollary}{Korolario}{Korolarioj}%
   \crefname{proposition}{Propozicio}{Propozicioj}%
-  \crefname{definition}{Defino}{Definoj}%
+  \crefname{definition}{Difino}{Difinoj}%
   \crefname{result}{Rezulto}{Rezultoj}%
   \crefname{example}{Ekzemplo}{Ekzemploj}%
   \crefname{remark}{Rimarko}{Rimarkoj}%
@@ -898,7 +898,7 @@
   \crefname{lemma}{lemo}{lemoj}%
   \crefname{corollary}{korolario}{korolarioj}%
   \crefname{proposition}{propozicio}{propozicioj}%
-  \crefname{definition}{defino}{definoj}%
+  \crefname{definition}{difino}{difinoj}%
   \crefname{result}{rezulto}{rezultoj}%
   \crefname{example}{ekzemplo}{ekzemploj}%
   \crefname{remark}{rimarko}{rimarkoj}%
