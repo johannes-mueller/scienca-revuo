@@ -1,3 +1,12 @@
-/auto
-/auto
-/srevuo.cls~
+auto
+*.aux
+*.bcf
+*.log
+*.out
+*.run.xml
+*~
+
+
+
+
+
