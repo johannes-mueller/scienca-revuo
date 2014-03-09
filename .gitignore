@@ -3,6 +3,8 @@ auto
 *.bcf
 *.log
 *.out
+*.bbl
+*.blg
 *.run.xml
 *~
 
