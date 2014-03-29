@@ -162,6 +162,7 @@
 %   \usepackage[utf8]{luainputenc}
 %\fi
 \RequirePackage[verbose=true,final=true]{microtype}
+\RequirePackage{icomma}
 \RequirePackage[bottom]{footmisc}
 %
 %\RequirePackage{fixltx2e}
