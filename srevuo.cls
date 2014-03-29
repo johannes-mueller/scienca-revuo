@@ -542,6 +542,11 @@
 \newcommand{\eldono}[1]{}
 \newcommand{\rubriko}[1]{}
 \newcommand{\cxi@eldono}{Scienca Revuo x/xxxx}
+\def\@volumo{XX}
+\def\@kajero{XX}
+\def\@numero{XX}
+\def\@jaro{XX}
+\def\@@rubriko{}
 \define@key{eldono}{volumo}{\def\@volumo{#1}}
 \define@key{eldono}{kajero}{\def\@kajero{#1}}
 \define@key{eldono}{numero}{\def\@numero{#1}}
