@@ -307,14 +307,14 @@
 \newcommand*{\person}[1]{#1}
 \newcommand*{\alilingve}[2]{\textsf{#2}}
 
-\newcommand{\RedakciaNoto}[2][]{
-  \def\@@temp{#1}
-  \ifx\@@temp\@empty
-    \def\@al@{}
-  \else
-    \def\@al@{\textbf{@#1:}\xspace}
-  \fi
-  \marginpar{\footnotesize\raggedright\sffamily\@al@#2}
+\newcommand{\RedakciaNoto}[2][]{%
+  \def\@@temp{#1}%
+  \ifx\@@temp\@empty%
+    \def\@al@{}%
+  \else%
+    \def\@al@{\textbf{@#1:}\xspace}%
+  \fi%
+  \marginpar{\color{red}\footnotesize\raggedright\sffamily\@al@#2}%
 }
 
 \DeclareRobustCommand{\NeEnRevuo}[1]{\ifSR@Author@#1\fi}
