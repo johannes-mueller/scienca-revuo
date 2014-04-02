@@ -672,6 +672,7 @@
     {\SR@embedded@begindocumenthook}%
     {\SR@embedded@enddocumenthook}%
     \renewcommand*{\bibliography}[1]{\newrefsection[#1]}
+    \renewcommand*{\DeclareMathOperator}[2]{}
     \input{\SR@local@inputname}%
   \endgroup
 }
