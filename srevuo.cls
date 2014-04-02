@@ -162,6 +162,7 @@
 %   \usepackage[utf8]{luainputenc}
 %\fi
 \RequirePackage[verbose=true,final=true]{microtype}
+\RequirePackage{icomma}
 \RequirePackage[bottom]{footmisc}
 %
 %\RequirePackage{fixltx2e}
@@ -306,14 +307,14 @@
 \newcommand*{\person}[1]{#1}
 \newcommand*{\alilingve}[2]{\textsf{#2}}
 
-\newcommand{\RedakciaNoto}[2][]{
-  \def\@@temp{#1}
-  \ifx\@@temp\@empty
-    \def\@al@{}
-  \else
-    \def\@al@{\textbf{@#1:}\xspace}
-  \fi
-  \marginpar{\footnotesize\raggedright\sffamily\@al@#2}
+\newcommand{\RedakciaNoto}[2][]{%
+  \def\@@temp{#1}%
+  \ifx\@@temp\@empty%
+    \def\@al@{}%
+  \else%
+    \def\@al@{\textbf{@#1:}\xspace}%
+  \fi%
+  \marginpar{\color{red}\footnotesize\raggedright\sffamily\@al@#2}%
 }
 
 \DeclareRobustCommand{\NeEnRevuo}[1]{\ifSR@Author@#1\fi}
@@ -541,6 +542,11 @@
 \newcommand{\eldono}[1]{}
 \newcommand{\rubriko}[1]{}
 \newcommand{\cxi@eldono}{Scienca Revuo x/xxxx}
+\def\@volumo{XX}
+\def\@kajero{XX}
+\def\@numero{XX}
+\def\@jaro{XX}
+\def\@@rubriko{}
 \define@key{eldono}{volumo}{\def\@volumo{#1}}
 \define@key{eldono}{kajero}{\def\@kajero{#1}}
 \define@key{eldono}{numero}{\def\@numero{#1}}
