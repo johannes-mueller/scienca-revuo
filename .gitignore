@@ -6,6 +6,9 @@ auto
 *.bbl
 *.blg
 *.run.xml
+*.rerun
+*.dep
+extended_preamble.tex
 *~
 
 
