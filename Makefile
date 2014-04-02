@@ -33,6 +33,7 @@ $(EXTENDED_PREAMBLE): $(ARTICLES)
 	@grep -h \\\\usepackage $(ARTICLES) >> $(EXTENDED_PREAMBLE) || true
 	@grep -h \\\\bibliography $(ARTICLES) >> $(EXTENDED_PREAMBLE) || true
 	@grep -h \\\\usetikzlibrary $(ARTICLES) >> $(EXTENDED_PREAMBLE) || true
+	@grep -h \\\\DeclareMathOperato $(ARTICLES) >> $(EXTENDED_PREAMBLE) || true
 
 define getarts
 	arts=`perl -ne '($$_)=/^[^%]*\\\(?:SRinput)\{(.*?)\}/;@_=split /,/;foreach $$t (@_) {print "$$t.tex "}' $<`
