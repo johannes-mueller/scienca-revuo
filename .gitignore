@@ -8,6 +8,7 @@ auto
 *.run.xml
 *.rerun
 *.dep
+*.toc
 extended_preamble.tex
 *~
 
