@@ -9,6 +9,7 @@ auto
 *.rerun
 *.dep
 *.toc
+numero.pdf
 extended_preamble.tex
 *~
 
