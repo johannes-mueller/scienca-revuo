@@ -23,15 +23,14 @@
 \RequirePackage{etoolbox}
 \RequirePackage{xparse}
 \RequirePackage{ifxetex}
-%\RequirePackage{ifluatex}
-\ifxetex\else
-\ClassError{sr-johmue}{Ĉi momente SR kaj ĝiaj artikoloj nur komposteblas pere de XeLaTeX.}{
-     SR estas kompostata per unikodkapabla XeLaTeX. Eble estontece ankaŭ
-     LuaLaTeX taŭgos. Ĉi momente ne, ĉar LuaLaTeX ne subtenas la pakaĵon
-     polyglossia. pdfLaTeX ne funkcias ĉar biblatex.sty konfliktas kun
-     ucs.sty.  Do restas XeLaTeX kiel ununura taŭga kompostilo.
-}
-\fi
+\RequirePackage{ifluatex}
+\ifxetex\else\ifluatex\else
+  \ClassError{sr-johmue}{%
+    SR kaj ĝiaj artikoloj nur komposteblas pere de XeLaTeX aŭ LuaLaTeX.}{%
+    SR estas kompostata per unikodkapabla XeLaTeX aŭ LuaLaTeX. Baldaŭ verŝajne
+    estos decido, por LuaLaTeX.
+  }
+\fi\fi
 \newcommand*\SR@@thelinenumber{\thepage-\arabic{linenumber}}
 %%%%
 \PassOptionsToPackage{table}{xcolor}
