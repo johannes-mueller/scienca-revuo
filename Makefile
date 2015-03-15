@@ -112,7 +112,7 @@ $(MAIN).aux: $(CLASSFILE) $(MAIN).tex $(ARTICLES) $(EXTENDED_PREAMBLE)
 .PHONY: clean totalclean targetclean
 
 clean:
-	$(RM) *.aux *.blg *.bbl *.bcf *.toc *.log *.run.xml *-blx.bib *.dep *.trm *.rerun $(EXTENDED_PREAMBLE)
+	$(RM) *.aux *.blg *.bbl *.bcf *.out *.toc *.log *.run.xml *-blx.bib *.dep *.trm *.rerun $(EXTENDED_PREAMBLE)
 
 totalclean: clean
 	$(RM) *~
