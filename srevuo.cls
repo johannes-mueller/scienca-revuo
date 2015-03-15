@@ -715,6 +715,8 @@
   }{}
 }
 
+\RequirePackage{amsmath}
+
 %\RequirePackage{booktabs}
 %\RequirePackage{array}
 %\RequirePackage{terminaro}
