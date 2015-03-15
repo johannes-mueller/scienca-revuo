@@ -9,10 +9,12 @@ auto
 *.rerun
 *.dep
 *.toc
-numero.pdf
-extended_preamble.tex
 *~
-
+extended_preamble.tex
+antauxparolo.pdf
+isae_informas.pdf
+scienca-ehho.pdf
+numero.pdf
 
 
 
