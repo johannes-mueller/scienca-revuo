@@ -1,0 +1,3 @@
+<#ifdef TEX>
+	<#define alilingve|\\alilingve{#1}{#2}>
+<#endif>
