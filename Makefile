@@ -62,8 +62,8 @@ include articles.mk
 
 BIBSBBL = $(addsuffix .bbl, $(basename $(BIBS)))
 ARTICLESPDF = $(addsuffix .pdf, $(basename $(ARTICLES)))
-ARTICLESPANDOC = $(addsuffix .pandoc, $(basename $(ARTICLESMD)))
 ARTICLESMDTEX = $(addsuffix .tex, $(basename $(ARTICLESMD)))
+ARTICLESHTML = $(addsuffix .html, $(basename $(ARTICLESMD)))
 
 
 articles_and_numero: $(ARTICLESPDF) $(MAINPDF)
@@ -73,7 +73,8 @@ numero: $(MAINPDF)
 articles: $(ARTICLESPDF)
 
 %.html: %.md
-	$(GPP) --include $(GPPMACROS) -DHMTL=1 -H $< | $(PANDOC) $< -t html5 -o $@
+	$(GPP) --include $(GPPMACROS) -DHMTL=1 -H $< | \
+	$(PANDOC) -t html5 -c srevuo.css --standalone -o $@
 
 %.tex: %.md $(PANDOCTEMPLATE)
 	$(GPP) --include $(GPPMACROS) -DTEX=1 -H $< | sed '/\S/,$$!d' | \
@@ -130,7 +131,8 @@ $(MAIN).aux: $(CLASSFILE) $(MAIN).tex $(ARTICLES) $(EXTENDED_PREAMBLE)
 .PHONY: clean totalclean targetclean
 
 clean:
-	$(RM) *.aux *.blg *.bbl *.bcf *.out *.toc *.log *.run.xml *-blx.bib *.dep *.trm *.rerun *.pandoc $(EXTENDED_PREAMBLE) $(ARTICLESMDTEX)
+	$(RM) *.aux *.blg *.bbl *.bcf *.out *.toc *.log *.run.xml *-blx.bib *.dep *.trm *.rerun \
+	$(EXTENDED_PREAMBLE) $(ARTICLESMDTEX) $(ARTICLESHTML)
 
 totalclean: clean
 	$(RM) *~
