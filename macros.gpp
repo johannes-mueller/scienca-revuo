@@ -1,0 +1,6 @@
+<#ifdef TEX>
+	<#define alilingve|\\alilingve{#1}{#2}>
+<#endif>
+<#ifdef HMTL>
+	<#define alilingve|\<span class=alilingve\>#2\</span\>>
+<#endif>
