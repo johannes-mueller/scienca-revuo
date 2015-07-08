@@ -7,8 +7,17 @@ $if(subtitle)$
 \subtitle{$subtitle$}
 $endif$
 $if(author)$
-\author{$for(author)$$author$$sep$ \and $endfor$}
+\author{%
+$for(author)$
+$if(author.name)$%
+$author.name$%
+$if(author.email)$\thanks{$author.email$}$endif$%$else$$author$$endif$
+\and$endfor$}
 $endif$
+
+$if(subtitle)$\subtitle{$subtitle$}$endif$
+
+\date{}
 
 \begin{document}
 $if(title)$
